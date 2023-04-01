@@ -35,7 +35,7 @@ function randStuMain() {
     }
 
     function rand() {
-        let rdn = Math.floor(Math.random() * (stuNumEnd - rdpList.length - 1) + 1);
+        let rdn = Math.floor(Math.random() * (stuNumEnd - rdpList.length - unrealStu.length) + 1);
         if (rdpBox.checked) {
             for (let i = 0; i < rdpList.length; i++) {
                 if (rdn >= rdpList[i]) rdn++;
