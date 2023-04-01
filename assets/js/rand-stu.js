@@ -51,8 +51,6 @@ function randStuMain() {
             if (rdn < unrealStu[M]) R = M;
             else L = M + 1;
         }
-        console.log(unrealStu.length);
-        console.log(`rdn: ${rdn}, L: ${L}, R: ${R};`);
         rdn += L;
         return rdn;
     }
