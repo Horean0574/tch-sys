@@ -98,66 +98,9 @@
         .fn-item-info {
             display: none;
         }
-
-        #mask-popup {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.7);
-            visibility: hidden;
-            filter: blur(32px);
-            opacity: 0;
-            transition: filter 250ms ease-in-out, opacity 450ms ease-in-out;
-        }
-
-        #popup {
-            position: fixed;
-            left: calc((100vw - 868px) / 2);
-            top: calc((100vh - 568px) / 2);
-            width: 850px;
-            height: 550px;
-            background-color: whitesmoke;
-            border: solid grey 1px;
-            border-radius: 1em;
-            padding: 8px;
-            box-shadow: 0 0 5px darkgrey;
-        }
-
-        #popup-nav {
-            position: absolute;
-        }
-
-        #popup-nav-close {
-            position: relative;
-            bottom: 6px;
-            left: 824px;
-            font-size: 32px;
-            line-height: 32px;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            transition: color 100ms ease-in-out;
-        }
-
-        #popup-nav-close:hover {
-            color: red;
-        }
-
-        #popup-body-title {
-            color: forestgreen;
-            font-size: 32px;
-            text-align: center;
-        }
-
-        #popup-body-info {
-            height: 430px;
-            padding: 12px;
-            font-size: 24px;
-            line-height: 24px;
-        }
     </style>
+    <link rel="stylesheet" href="./assets/css/popup.css">
+    <script src="./assets/js/init.js"></script>
     <script src="./assets/js/rand-stu.js"></script>
     <script src="./assets/js/count-down.js"></script>
 </head>
@@ -177,13 +120,13 @@
                     <h2 class="fn-item-title">随机抽人</h2>
                     <p class="fn-item-text">帮助老师快速抽取学生回答问题的神器。</p>
                     <button class="fn-item-btn">立即使用</button>
-                    <div class="fn-item-info" data-fn-id="rand-stu-info"></div>
+                    <div class="fn-item-info"></div>
                 </li>
                 <li id="count-down" class="fn-item">
                     <h2 class="fn-item-title">计时器</h2>
                     <p class="fn-item-text">帮助老师规定学生在指定时间内完成任务&测算学生完成任务的时间的神器。</p>
                     <button class="fn-item-btn">立即使用</button>
-                    <div class="fn-item-info" data-fn-id="count-down-info"></div>
+                    <div class="fn-item-info"></div>
                 </li>
             </ul>
         </section>
@@ -223,7 +166,7 @@
         let fnItem = fnItems[i];
         let fnItemInfo = fnItem.querySelector(".fn-item-info");
         let fnItemReq = new XMLHttpRequest();
-        fnItemReq.open("get", `assets/templates/${fnItem.id}.html`);
+        fnItemReq.open("get", `./templates/${fnItem.id}.html`);
         fnItemReq.send(null);
         fnItemReq.addEventListener("load", function () {
             fnItemInfo.innerHTML = fnItemReq.responseText;
@@ -240,17 +183,17 @@
         fnItem.title = itemTitle;
         fnItemBtn.addEventListener("click", function () {
             maskPopup.style.visibility = "visible";
-            setTimeout(function () {
+            setTimeout(() => {
                 maskPopup.style.opacity = "1";
                 maskPopup.style.filter = "blur(0)";
             }, 0);
             popupBodyTitle.innerHTML = fnItemTitle.innerHTML;
             popupBodyTitle.title = fnItemTitle.innerHTML;
             popupBodyInfo.innerHTML = fnItemInfo.innerHTML;
-            popupBodyInfo.classList.add(fnItemInfo.getAttribute("data-fn-id"));
+            popupBodyInfo.classList.add(fnItem.id + "-info");
             if (fnItem.id === "rand-stu") {
                 let clsReq = new XMLHttpRequest();
-                clsReq.open("get", "assets/data/classes.json");
+                clsReq.open("get", "./assets/data/classes.json");
                 clsReq.send(null);
                 clsReq.addEventListener("load", function () {
                     let data = JSON.parse(clsReq.responseText);
