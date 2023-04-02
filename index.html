@@ -86,7 +86,7 @@
             color: orange;
         }
 
-        .fn-item-text {
+        .fn-item-desc {
             height: 3em;
             text-align: left;
         }
@@ -98,11 +98,15 @@
         .fn-item-info {
             display: none;
         }
+
+        #example-fn {
+            display: none;
+        }
     </style>
     <link rel="stylesheet" href="./assets/css/popup.css">
     <script src="./assets/js/init.js"></script>
-    <script src="./assets/js/rand-stu.js"></script>
-    <script src="./assets/js/count-down.js"></script>
+    <script src="assets/js/fn/rand-stu.js"></script>
+    <script src="assets/js/fn/count-down.js"></script>
 </head>
 <body>
 <header id="head">
@@ -116,17 +120,11 @@
         <hr>
         <section>
             <ul id="fn-list">
-                <li id="rand-stu" class="fn-item">
-                    <h2 class="fn-item-title">随机抽人</h2>
-                    <p class="fn-item-text">帮助老师快速抽取学生回答问题的神器。</p>
+                <li id="example-fn" class="fn-item">
+                    <h2 class="fn-item-title">Example Function</h2>
+                    <p class="fn-item-desc">Example Function: an example.</p>
                     <button class="fn-item-btn">立即使用</button>
-                    <div class="fn-item-info"></div>
-                </li>
-                <li id="count-down" class="fn-item">
-                    <h2 class="fn-item-title">计时器</h2>
-                    <p class="fn-item-text">帮助老师规定学生在指定时间内完成任务&测算学生完成任务的时间的神器。</p>
-                    <button class="fn-item-btn">立即使用</button>
-                    <div class="fn-item-info"></div>
+                    <div class="fn-item-info">nothing</div>
                 </li>
             </ul>
         </section>
@@ -150,6 +148,10 @@
     <p id="copyright">&copy; 2022-2023 Horean</p>
 </footer>
 <script>
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
     let title = document.querySelector("#title");
     title.addEventListener("click", function () {
         location.reload();
@@ -160,61 +162,98 @@
     let popupBodyTitle = popupBody.querySelector("#popup-body-title");
     let popupBodyInfo = popupBody.querySelector("#popup-body-info");
 
-    let fnItems = document.querySelectorAll(".fn-item");
-    let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
-    for (let i = 0; i < fnItems.length; i++) {
-        let fnItem = fnItems[i];
-        let fnItemInfo = fnItem.querySelector(".fn-item-info");
-        let fnItemReq = new XMLHttpRequest();
-        fnItemReq.open("get", `./templates/${fnItem.id}.html`);
-        fnItemReq.send(null);
-        fnItemReq.addEventListener("load", function () {
-            fnItemInfo.innerHTML = fnItemReq.responseText;
-        });
-    }
-    for (let i = 0; i < fnItems.length; i++) {
-        let fnItem = fnItems[i];
-        let fnItemTitle = fnItem.querySelector(".fn-item-title");
-        let fnItemText = fnItem.querySelector(".fn-item-text");
-        let fnItemInfo = fnItem.querySelector(".fn-item-info");
-        let fnItemBtn = fnItem.querySelector(".fn-item-btn");
-        let itemTitle = `【${fnItemTitle.innerHTML}】${fnItemText.innerHTML}`;
-        itemTitle = itemTitle.replace("&amp;", "&");
-        fnItem.title = itemTitle;
-        fnItemBtn.addEventListener("click", function () {
-            maskPopup.style.visibility = "visible";
-            setTimeout(() => {
-                maskPopup.style.opacity = "1";
-                maskPopup.style.filter = "blur(0)";
-            }, 0);
-            popupBodyTitle.innerHTML = fnItemTitle.innerHTML;
-            popupBodyTitle.title = fnItemTitle.innerHTML;
-            popupBodyInfo.innerHTML = fnItemInfo.innerHTML;
-            popupBodyInfo.classList.add(fnItem.id + "-info");
-            if (fnItem.id === "rand-stu") {
-                let clsReq = new XMLHttpRequest();
-                clsReq.open("get", "./assets/data/classes.json");
-                clsReq.send(null);
-                clsReq.addEventListener("load", function () {
-                    let data = JSON.parse(clsReq.responseText);
-                    randStuFn(data[0]["students"]);
-                });
-            } else {
-                fnMap[fnItem.id]();
+    async function run() {
+        let fnList = document.querySelector("#fn-list");
+        let fnItems = [];
+        let fnListReq = new XMLHttpRequest();
+        fnListReq.open("get", "./assets/data/functions.json");
+        fnListReq.send(null);
+        fnListReq.addEventListener("load", function () {
+            let data = JSON.parse(fnListReq.responseText);
+            for (let i = 0; i < data.length; i++) {
+                let newFnItem = document.createElement("li");
+                newFnItem.id = data[i]["id"];
+                newFnItem.className = "fn-item";
+                let newFnItemTitle = document.createElement("h2");
+                newFnItemTitle.className = "fn-item-title";
+                newFnItemTitle.innerHTML = data[i]["title"];
+                let newFnItemDesc = document.createElement("p");
+                newFnItemDesc.className = "fn-item-desc";
+                newFnItemDesc.innerHTML = data[i]["desc"];
+                let newFnItemBtn = document.createElement("button");
+                newFnItemBtn.className = "fn-item-btn";
+                newFnItemBtn.innerHTML = "立即使用";
+                let newFnItemInfo = document.createElement("div");
+                newFnItemInfo.className = "fn-item-info";
+                newFnItem.appendChild(newFnItemTitle);
+                newFnItem.appendChild(newFnItemDesc);
+                newFnItem.appendChild(newFnItemBtn);
+                newFnItem.appendChild(newFnItemInfo);
+                fnList.appendChild(newFnItem);
+                fnItems.push(newFnItem);
             }
         });
+
+        await sleep(300);
+
+        console.log(fnItems);
+        let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
+        for (let i = 0; i < fnItems.length; i++) {
+            let fnItem = fnItems[i];
+            let fnItemInfo = fnItem.querySelector(".fn-item-info");
+            let fnItemReq = new XMLHttpRequest();
+            fnItemReq.open("get", `./templates/${fnItem.id}.html`);
+            fnItemReq.send(null);
+            fnItemReq.addEventListener("load", function () {
+                fnItemInfo.innerHTML = fnItemReq.responseText;
+            });
+        }
+        for (let i = 0; i < fnItems.length; i++) {
+            let fnItem = fnItems[i];
+            let fnItemTitle = fnItem.querySelector(".fn-item-title");
+            let fnItemDesc = fnItem.querySelector(".fn-item-desc");
+            let fnItemInfo = fnItem.querySelector(".fn-item-info");
+            let fnItemBtn = fnItem.querySelector(".fn-item-btn");
+            let itemTitle = `【${fnItemTitle.innerHTML}】${fnItemDesc.innerHTML}`;
+            itemTitle = itemTitle.replace("&amp;", "&");
+            fnItem.title = itemTitle;
+            fnItemBtn.addEventListener("click", function () {
+                maskPopup.style.visibility = "visible";
+                setTimeout(() => {
+                    maskPopup.style.opacity = "1";
+                    maskPopup.style.filter = "blur(0)";
+                }, 0);
+                popupBodyTitle.innerHTML = fnItemTitle.innerHTML;
+                popupBodyTitle.title = fnItemTitle.innerHTML;
+                popupBodyInfo.innerHTML = fnItemInfo.innerHTML;
+                popupBodyInfo.classList.add(fnItem.id + "-info");
+                if (fnItem.id === "rand-stu") {
+                    let clsReq = new XMLHttpRequest();
+                    clsReq.open("get", "./assets/data/classes.json");
+                    clsReq.send(null);
+                    clsReq.addEventListener("load", function () {
+                        let data = JSON.parse(clsReq.responseText);
+                        randStuFn(data[0]["students"]);
+                    });
+                } else {
+                    fnMap[fnItem.id]();
+                }
+            });
+        }
+        popupNavClose.addEventListener("click", function () {
+            maskPopup.style.filter = "blur(32px)";
+            maskPopup.style.opacity = "0";
+            setTimeout(function () {
+                maskPopup.style.visibility = "hidden";
+                popupBodyTitle.innerHTML = "";
+                popupBodyTitle.title = "";
+                popupBodyInfo.innerHTML = "";
+                popupBodyInfo.className = "";
+            }, 500);
+        });
     }
-    popupNavClose.addEventListener("click", function () {
-        maskPopup.style.filter = "blur(32px)";
-        maskPopup.style.opacity = "0";
-        setTimeout(function () {
-            maskPopup.style.visibility = "hidden";
-            popupBodyTitle.innerHTML = "";
-            popupBodyTitle.title = "";
-            popupBodyInfo.innerHTML = "";
-            popupBodyInfo.className = "";
-        }, 500);
-    });
+
+    run();
 </script>
 </body>
 </html>
