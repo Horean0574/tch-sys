@@ -1,0 +1,139 @@
+<style>
+    .rand-stu[data-fn-id="stu-show"] {
+        display: none;
+    }
+
+    .rand-stu[data-fn-id="left-panel"] {
+        position: absolute;
+        width: calc(50% - 20px);
+        height: 430px;
+        border-right: solid 1px grey;
+    }
+
+    .rand-stu[data-fn-id="rand-part"] {
+        margin-bottom: 1em;
+    }
+
+    .rand-stu[data-fn-cls="pm-btn"] {
+        width: 32px;
+        font-size: 24px;
+    }
+
+    .rand-stu[data-fn-id="stu-num"] {
+        outline: none;
+    }
+
+    .rand-stu[data-fn-id="stu-num-tip"] {
+        font-size: 16px;
+        display: inline-block;
+    }
+
+    .rand-stu[data-fn-id="rdp-box"] {
+        width: 16px;
+        height: 16px;
+    }
+
+    .rand-stu[data-fn-id="randing"] {
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .rand-stu[data-fn-id="clearing"] {
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .rand-stu[data-fn-id="building-tip"] {
+        font-size: 16px;
+        color: grey;
+    }
+
+    .rand-stu[data-fn-id="right-panel"] {
+        position: absolute;
+        width: calc(50% - 20px);
+        height: 430px;
+        left: 50%;
+    }
+
+    .rand-stu[data-fn-id="stu-ul"] {
+        height: 100%;
+        margin: 0;
+        font-size: 20px;
+        list-style-type: square;
+        overflow-y: scroll;
+    }
+
+    .rand-stu[data-fn-id="empty-text"] {
+        list-style-type: none;
+        color: grey;
+        text-align: center;
+    }
+
+    .rand-stu[data-fn-id="return-btn"] {
+        position: relative;
+        left: 16px;
+        bottom: 16px;
+    }
+
+    .rand-stu[data-fn-id="return-btn-text"] {
+        color: grey;
+        cursor: pointer;
+    }
+
+    .rand-stu[data-fn-id="show-state"] {
+        margin: 0;
+        text-align: center;
+        line-height: 280px;
+    }
+
+    .rand-stu[data-fn-id="state-num"] {
+        color: orange;
+        font-size: 64px;
+    }
+
+    .rand-stu[data-fn-id="state-name"] {
+        font-size: 80px;
+    }
+</style>
+<div class="rand-stu" data-fn-id="opt-page">
+    <section class="rand-stu" data-fn-id="left-panel">
+        <div class="rand-stu" data-fn-id="rand-part">
+            <span class="rand-stu">学生个数：</span>
+            <button class="rand-stu" data-fn-cls="pm-btn" data-fn-id="minus-btn">-</button>
+            <span class="rand-stu" data-fn-id="stu-num" contenteditable="true">5</span>
+            <button class="rand-stu" data-fn-cls="pm-btn" data-fn-id="plus-btn">+</button>
+            <span class="rand-stu" data-fn-id="stu-num-tip">( 1 &le; n &le; 50 )</span>
+            <br>
+            <label style="margin-bottom: 6px; display: inline-block;">
+                <input class="rand-stu" data-fn-id="rdp-box" type="checkbox" checked>
+                <span style="font-size: 18px;">智能去重</span>
+            </label>
+            <br>
+            <button class="rand-stu" data-fn-id="randing">随机抽取</button>
+            <button class="rand-stu" data-fn-id="clearing">清空面板</button>
+        </div>
+        <div class="rand-stu" data-fn-id="find-part">
+            <span class="rand-stu">智能查找：</span>
+            <p class="rand-stu" data-fn-id="building-tip">未完待续……</p>
+        </div>
+    </section>
+    <section class="rand-stu" data-fn-id="right-panel">
+        <ul class="rand-stu" data-fn-id="stu-ul">
+            <li class="rand-stu" data-fn-id="empty-text">空空如也~</li>
+        </ul>
+    </section>
+</div>
+<div class="rand-stu" data-fn-id="stu-show">
+    <section class="rand-stu" data-fn-id="return-btn">
+        <span class="rand-stu" data-fn-id="return-btn-text">&lt; 返回</span>
+    </section>
+    <h1 class="rand-stu" data-fn-id="show-state">
+        <span class="rand-stu">恭喜</span>
+        <span class="rand-stu" data-fn-id="state-num">N</span>
+        <span class="rand-stu">号同学</span>
+        <span class="rand-stu" data-fn-id="state-name">X</span>
+        <span class="rand-stu">被选中！</span>
+    </h1>
+</div>

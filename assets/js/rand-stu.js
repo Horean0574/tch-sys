@@ -7,22 +7,24 @@ let unrealStu = [];
 function randStuMain() {
     function checkStuNum() {
         if (stuNum.innerHTML === "") stuNum.innerHTML = "1";
-        if (!(/^\\d+$/.test(stuNum.innerHTML))) stuNum.innerHTML = stuNum.innerHTML.replace(/\D/g, "");
+        if (!(/^\\d+$/.test(stuNum.innerHTML))) {
+            stuNum.innerHTML = stuNum.innerHTML.replace(/\D/g, "");
+        }
         let stuNumN = parseInt(stuNum.innerHTML);
-        minus.disabled = (stuNumN <= 1);
-        plus.disabled = (stuNumN >= realStuNums);
-        minus.style.cursor = stuNumN <= 1 ? "not-allowed" : "pointer";
-        plus.style.cursor = stuNumN >= realStuNums ? "not-allowed" : "pointer";
+        minusBtn.disabled = (stuNumN <= 1);
+        plusBtn.disabled = (stuNumN >= realStuNums);
+        minusBtn.style.cursor = stuNumN <= 1 ? "not-allowed" : "pointer";
+        plusBtn.style.cursor = stuNumN >= realStuNums ? "not-allowed" : "pointer";
         if (stuNumN < 1 || stuNumN > realStuNums) {
             stuNumTip.style.color = "red";
             stuNumTip.style.transform = "translateX(-4px)";
-            setTimeout(function () {
+            setTimeout(() => {
                 stuNumTip.style.transform = "translateX(7px)";
-                setTimeout(function () {
+                setTimeout(() => {
                     stuNumTip.style.transform = "translateX(-6px)";
-                    setTimeout(function () {
+                    setTimeout(() => {
                         stuNumTip.style.transform = "translateX(6px)";
-                        setTimeout(function () {
+                        setTimeout(() => {
                             stuNumTip.style.transform = "";
                             stuNumTip.style.color = "black";
                         }, 80);
@@ -40,52 +42,53 @@ function randStuMain() {
             for (let i = 0; i < rdpList.length; i++) {
                 if (rdn >= rdpList[i]) rdn++;
             }
-            if (rdpList.indexOf(rdn) === -1) rdpList.push(rdn);
-            rdpList.sort(function (a, b) {
-                return a - b;
-            });
+            let L1 = 0, R1 = rdpList.length;
+            while (L1 < R1) {
+                let M1 = Math.floor((L1 + R1) / 2);
+                if (rdn < rdpList[M1]) R1 = M1;
+                else L1 = M1 + 1;
+            }
+            if (rdpList.indexOf(rdn) === -1) rdpList.splice(L1, 0, rdn);
         }
-        let L = 0, R = unrealStu.length;
-        while (L < R) {
-            let M = Math.floor((L + R) / 2);
-            if (rdn < unrealStu[M]) R = M;
-            else L = M + 1;
+        let L2 = 0, R2 = unrealStu.length;
+        while (L2 < R2) {
+            let M2 = Math.floor((L2 + R2) / 2);
+            if (rdn < unrealStu[M2]) R2 = M2;
+            else L2 = M2 + 1;
         }
-        rdn += L;
+        rdn += L2;
         return rdn;
     }
 
     let info = document.querySelector(".rand-stu-info");
-    let divs = document.querySelectorAll(".rand-stu-info > div");
-    let optPage = divs[0];
-    let stuShow = divs[1];
-    let returnBtn = stuShow.querySelector("section span");
-    let state = stuShow.querySelector("h1");
-    let secs = info.querySelectorAll("section");
-    let leftPanel = secs[0];
-    let rightPanel = secs[1];
-    let spans = leftPanel.querySelectorAll("span");
-    let stuNum = spans[1];
-    let stuNumTip = spans[2];
-    let rdpBox = leftPanel.querySelector("input[type=checkbox]");
+    let optPage = getFnEleById(info, "opt-page");
+    let stuShow = getFnEleById(info, "stu-show");
+    let returnBtnText = getFnEleById(stuShow, "return-btn-text");
+    let showState = getFnEleById(stuShow, "show-state");
+    let leftPanel = getFnEleById(optPage, "left-panel");
+    let rightPanel = getFnEleById(optPage, "right-panel");
+    let randPart = getFnEleById(leftPanel, "rand-part");
+    // let findPart = getFnEleById(leftPanel, "find-part");
+    let stuNum = getFnEleById(randPart, "stu-num");
+    let stuNumTip = getFnEleById(randPart, "stu-num-tip");
+    let rdpBox = getFnEleById(randPart, "rdp-box");
     let rdpList = [];
-    let buttons = leftPanel.querySelectorAll("button");
-    let minus = buttons[0];
-    let plus = buttons[1];
-    let randing = buttons[2];
-    let clearing = buttons[3];
-    let stuUl = rightPanel.querySelector("ul");
-    let emptyText = stuUl.querySelector("li");
+    let minusBtn = getFnEleById(randPart, "minus-btn");
+    let plusBtn = getFnEleById(randPart, "plus-btn");
+    let randing = getFnEleById(randPart, "randing");
+    let clearing = getFnEleById(randPart, "clearing");
+    let stuUl = getFnEleById(rightPanel, "stu-ul");
+    let emptyText = getFnEleById(stuUl, "empty-text");
 
     stuNumTip.innerHTML = `( 1 &le; n &le; ${realStuNums} )`;
 
     stuNum.addEventListener("input", checkStuNum);
-    minus.addEventListener("click", function () {
+    minusBtn.addEventListener("click", function () {
         let nextNum = parseInt(stuNum.innerHTML) - 1;
         stuNum.innerHTML = nextNum.toString();
         checkStuNum();
     });
-    plus.addEventListener("click", function () {
+    plusBtn.addEventListener("click", function () {
         let nextNum = parseInt(stuNum.innerHTML) + 1;
         stuNum.innerHTML = nextNum.toString();
         checkStuNum();
@@ -130,8 +133,8 @@ function randStuMain() {
             });
             stu.addEventListener("click", function () {
                 info.style.animation = "cardFlip 600ms ease-in-out both";
-                setTimeout(function () {
-                    let stateSpans = state.querySelectorAll("span");
+                setTimeout(() => {
+                    let stateSpans = showState.querySelectorAll("span");
                     let stateNum = stateSpans[1];
                     let stateName = stateSpans[3];
                     stateNum.innerHTML = rStuN.toString();
@@ -151,23 +154,23 @@ function randStuMain() {
     clearing.addEventListener("click", function () {
         stuUl.innerHTML = emptyText.outerHTML;
     });
-    returnBtn.addEventListener("mouseenter", function () {
-        returnBtn.style.color = "darkgrey";
+    returnBtnText.addEventListener("mouseenter", function () {
+        returnBtnText.style.color = "darkgrey";
     });
-    returnBtn.addEventListener("mouseleave", function () {
-        returnBtn.style.color = "grey";
+    returnBtnText.addEventListener("mouseleave", function () {
+        returnBtnText.style.color = "grey";
     });
-    returnBtn.addEventListener("click", function () {
+    returnBtnText.addEventListener("click", function () {
         info.style.animation = "cardFlip 600ms ease-in-out both";
-        setTimeout(function () {
+        setTimeout(() => {
             stuShow.style.display = "none";
             optPage.style.display = "block";
-            let stateSpans = state.querySelectorAll("span");
+            let stateSpans = showState.querySelectorAll("span");
             let stateNum = stateSpans[1];
             let stateName = stateSpans[3];
             stateNum.innerHTML = "X";
             stateName.innerHTML = "N";
-            setTimeout(function () {
+            setTimeout(() => {
                 info.style.animation = "";
             }, 300);
         }, 300);
@@ -175,6 +178,13 @@ function randStuMain() {
 }
 
 function randStuFn(students) {
+    ~function () {
+        stuList = [];
+        stuInfo = [];
+        stuNumEnd = 0;
+        realStuNums = 0;
+        unrealStu = [];
+    }();
     stuInfo = students;
     stuNumEnd = stuInfo.length - 1;
     for (let i = 0; i <= stuNumEnd; i++) {
