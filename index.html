@@ -105,6 +105,7 @@
     </style>
     <link rel="stylesheet" href="./assets/css/popup.css">
     <script src="./assets/js/init.js"></script>
+    <script src="./assets/js/popup.js"></script>
     <script src="assets/js/fn/rand-stu.js"></script>
     <script src="assets/js/fn/count-down.js"></script>
 </head>
@@ -148,54 +149,38 @@
     <p id="copyright">&copy; 2022-2023 Horean</p>
 </footer>
 <script>
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
-
     let title = document.querySelector("#title");
     title.addEventListener("click", function () {
         location.reload();
     });
-    let maskPopup = document.querySelector("#mask-popup");
-    let popupNavClose = document.querySelector("#popup-nav-close");
-    let popupBody = document.querySelector("#popup-body");
-    let popupBodyTitle = popupBody.querySelector("#popup-body-title");
-    let popupBodyInfo = popupBody.querySelector("#popup-body-info");
 
-    async function run() {
-        let fnList = document.querySelector("#fn-list");
-        let fnItems = [];
-        let fnListReq = new XMLHttpRequest();
-        fnListReq.open("get", "./assets/data/functions.json");
-        fnListReq.send(null);
-        fnListReq.addEventListener("load", function () {
-            let data = JSON.parse(fnListReq.responseText);
-            for (let i = 0; i < data.length; i++) {
-                let newFnItem = document.createElement("li");
-                newFnItem.id = data[i]["id"];
-                newFnItem.className = "fn-item";
-                let newFnItemTitle = document.createElement("h2");
-                newFnItemTitle.className = "fn-item-title";
-                newFnItemTitle.innerHTML = data[i]["title"];
-                let newFnItemDesc = document.createElement("p");
-                newFnItemDesc.className = "fn-item-desc";
-                newFnItemDesc.innerHTML = data[i]["desc"];
-                let newFnItemBtn = document.createElement("button");
-                newFnItemBtn.className = "fn-item-btn";
-                newFnItemBtn.innerHTML = "立即使用";
-                let newFnItemInfo = document.createElement("div");
-                newFnItemInfo.className = "fn-item-info";
-                newFnItem.appendChild(newFnItemTitle);
-                newFnItem.appendChild(newFnItemDesc);
-                newFnItem.appendChild(newFnItemBtn);
-                newFnItem.appendChild(newFnItemInfo);
-                fnList.appendChild(newFnItem);
-                fnItems.push(newFnItem);
-            }
-        });
+    function initElements(fnList, fnListReq) {
+        let data = JSON.parse(fnListReq.responseText);
+        for (let i = 0; i < data.length; i++) {
+            let newFnItem = document.createElement("li");
+            newFnItem.id = data[i]["id"];
+            newFnItem.className = "fn-item";
+            let newFnItemTitle = document.createElement("h2");
+            newFnItemTitle.className = "fn-item-title";
+            newFnItemTitle.innerHTML = data[i]["title"];
+            let newFnItemDesc = document.createElement("p");
+            newFnItemDesc.className = "fn-item-desc";
+            newFnItemDesc.innerHTML = data[i]["desc"];
+            let newFnItemBtn = document.createElement("button");
+            newFnItemBtn.className = "fn-item-btn";
+            newFnItemBtn.innerHTML = "立即使用";
+            let newFnItemInfo = document.createElement("div");
+            newFnItemInfo.className = "fn-item-info";
+            newFnItem.appendChild(newFnItemTitle);
+            newFnItem.appendChild(newFnItemDesc);
+            newFnItem.appendChild(newFnItemBtn);
+            newFnItem.appendChild(newFnItemInfo);
+            fnList.appendChild(newFnItem);
+            fnItems.push(newFnItem);
+        }
+    }
 
-        await sleep(300);
-
+    function initFunctions() {
         console.log(fnItems);
         let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
         for (let i = 0; i < fnItems.length; i++) {
@@ -209,25 +194,18 @@
             });
         }
         for (let i = 0; i < fnItems.length; i++) {
-            let fnItem = fnItems[i];
-            let fnItemTitle = fnItem.querySelector(".fn-item-title");
-            let fnItemDesc = fnItem.querySelector(".fn-item-desc");
-            let fnItemInfo = fnItem.querySelector(".fn-item-info");
-            let fnItemBtn = fnItem.querySelector(".fn-item-btn");
-            let itemTitle = `【${fnItemTitle.innerHTML}】${fnItemDesc.innerHTML}`;
+            let fnItemEle = fnItems[i];
+            let fnItemObj = {};
+            fnItemObj.title = fnItemEle.querySelector(".fn-item-title");
+            fnItemObj.desc = fnItemEle.querySelector(".fn-item-desc");
+            fnItemObj.info = fnItemEle.querySelector(".fn-item-info");
+            fnItemObj.btn = fnItemEle.querySelector(".fn-item-btn");
+            let itemTitle = `【${fnItemObj.title.innerHTML}】${fnItemObj.desc.innerHTML}`;
             itemTitle = itemTitle.replace("&amp;", "&");
-            fnItem.title = itemTitle;
-            fnItemBtn.addEventListener("click", function () {
-                maskPopup.style.visibility = "visible";
-                setTimeout(() => {
-                    maskPopup.style.opacity = "1";
-                    maskPopup.style.filter = "blur(0)";
-                }, 0);
-                popupBodyTitle.innerHTML = fnItemTitle.innerHTML;
-                popupBodyTitle.title = fnItemTitle.innerHTML;
-                popupBodyInfo.innerHTML = fnItemInfo.innerHTML;
-                popupBodyInfo.classList.add(fnItem.id + "-info");
-                if (fnItem.id === "rand-stu") {
+            fnItemEle.title = itemTitle;
+            fnItemObj.btn.addEventListener("click", function () {
+                openPopup(fnItemEle, fnItemObj);
+                if (fnItemEle.id === "rand-stu") {
                     let clsReq = new XMLHttpRequest();
                     clsReq.open("get", "./assets/data/classes.json");
                     clsReq.send(null);
@@ -236,24 +214,26 @@
                         randStuFn(data[0]["students"]);
                     });
                 } else {
-                    fnMap[fnItem.id]();
+                    fnMap[fnItemEle.id]();
                 }
             });
         }
-        popupNavClose.addEventListener("click", function () {
-            maskPopup.style.filter = "blur(32px)";
-            maskPopup.style.opacity = "0";
-            setTimeout(function () {
-                maskPopup.style.visibility = "hidden";
-                popupBodyTitle.innerHTML = "";
-                popupBodyTitle.title = "";
-                popupBodyInfo.innerHTML = "";
-                popupBodyInfo.className = "";
-            }, 500);
-        });
     }
 
-    run();
+    let fnItems = [];
+    let fnList = document.querySelector("#fn-list");
+    let fnListReq = new XMLHttpRequest();
+    fnListReq.open("get", "./assets/data/functions.json");
+    fnListReq.send(null);
+    fnListReq.addEventListener("load", function () {
+        new Promise((resolve) => {
+            initElements(fnList, fnListReq);
+            resolve();
+        }).then(() => {
+            initFunctions();
+        });
+    });
+    initPopup();
 </script>
 </body>
 </html>
