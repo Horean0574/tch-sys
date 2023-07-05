@@ -45,9 +45,9 @@
         font-size: 16px;
     }
 
-    .rand-stu[data-fn-id="building-tip"] {
-        font-size: 16px;
-        color: grey;
+    .rand-stu[data-fn-id="find-cont"] {
+        padding: 3px;
+        font-size: 18px;
     }
 
     .rand-stu[data-fn-id="right-panel"] {
@@ -108,7 +108,7 @@
             <br>
             <label style="margin-bottom: 6px; display: inline-block;">
                 <input class="rand-stu" data-fn-id="rdp-box" type="checkbox" checked>
-                <span style="font-size: 18px;">智能去重</span>
+                <span class="rand-stu fs18">智能去重</span>
             </label>
             <br>
             <button class="rand-stu" data-fn-id="randing">随机抽取</button>
@@ -116,7 +116,9 @@
         </div>
         <div class="rand-stu" data-fn-id="find-part">
             <span class="rand-stu">智能查找：</span>
-            <p class="rand-stu" data-fn-id="building-tip">未完待续……</p>
+            <label>
+                <input class="rand-stu" data-fn-id="find-cont" type="text" placeholder="查找内容">
+            </label>
         </div>
     </section>
     <section class="rand-stu" data-fn-id="right-panel">

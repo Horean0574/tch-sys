@@ -68,15 +68,17 @@ function randStuMain() {
     let leftPanel = getFnEleById(optPage, "left-panel");
     let rightPanel = getFnEleById(optPage, "right-panel");
     let randPart = getFnEleById(leftPanel, "rand-part");
-    // let findPart = getFnEleById(leftPanel, "find-part");
+    let findPart = getFnEleById(leftPanel, "find-part");
     let stuNum = getFnEleById(randPart, "stu-num");
     let stuNumTip = getFnEleById(randPart, "stu-num-tip");
     let rdpBox = getFnEleById(randPart, "rdp-box");
     let rdpList = [];
+    let rdRes = [];
     let minusBtn = getFnEleById(randPart, "minus-btn");
     let plusBtn = getFnEleById(randPart, "plus-btn");
     let randing = getFnEleById(randPart, "randing");
     let clearing = getFnEleById(randPart, "clearing");
+    let findCont = getFnEleById(findPart, "find-cont");
     let stuUl = getFnEleById(rightPanel, "stu-ul");
     let emptyText = getFnEleById(stuUl, "empty-text");
 
@@ -95,9 +97,11 @@ function randStuMain() {
     });
     randing.addEventListener("click", function () {
         stuUl.innerHTML = "";
+        rdRes = [];
         let stuNumN = parseInt(stuNum.innerHTML);
         while (stuNumN--) {
             let rStuN = rand();
+            rdRes.push(rStuN);
             let stu = document.createElement("li");
             let stuNum = document.createElement("span");
             let stuName = document.createElement("span");
@@ -154,6 +158,23 @@ function randStuMain() {
     clearing.addEventListener("click", function () {
         stuUl.innerHTML = emptyText.outerHTML;
     });
+
+    findCont.addEventListener("input", function () {
+        let cont = findCont.value;
+        // let resNum = 0;
+        if (/[a-zA-Z]+/.test(cont)) return;
+        for (let i in rdRes) {
+            let stuNum = rdRes[i];
+            let stuName = stuInfo[stuNum]["name"];
+            if (stuNum.toString().includes(cont) || stuName.includes(cont)) {
+                stuUl.children[i].style.display = "list-item";
+                // ++resNum;
+            } else {
+                stuUl.children[i].style.display = "none";
+            }
+        }
+    });
+
     returnBtnText.addEventListener("mouseenter", function () {
         returnBtnText.style.color = "darkgrey";
     });

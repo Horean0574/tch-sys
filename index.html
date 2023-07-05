@@ -4,21 +4,6 @@
     <meta charset="UTF-8">
     <title>老师快乐系统</title>
     <style>
-        @keyframes cardFlip {
-            0% {
-                filter: blur(0);
-                opacity: 1;
-            }
-            50% {
-                filter: blur(6px);
-                opacity: 0.4;
-            }
-            100% {
-                filter: blur(0);
-                opacity: 1;
-            }
-        }
-
         * {
             user-select: none;
         }
@@ -53,57 +38,10 @@
             margin: 0;
             font-size: 24px;
         }
-
-        #fn-list {
-            padding: 0;
-            list-style: none;
-            text-align: left;
-        }
-
-        .fn-item {
-            width: 300px;
-            margin: 0 8px;
-            padding: 10px;
-            border: solid grey 1px;
-            border-radius: 1em;
-            display: inline-block;
-            text-align: center;
-            transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
-        }
-
-        .fn-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 2px 2px 2px lightgrey;
-        }
-
-        .fn-item-title {
-            margin: 0;
-            color: #fda34e;
-            transition: color 300ms ease-in-out;
-        }
-
-        .fn-item:hover .fn-item-title {
-            color: orange;
-        }
-
-        .fn-item-desc {
-            height: 3em;
-            text-align: left;
-        }
-
-        .fn-item-btn {
-            font-size: 1em;
-        }
-
-        .fn-item-info {
-            display: none;
-        }
-
-        #example-fn {
-            display: none;
-        }
     </style>
+    <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
+    <link rel="stylesheet" href="./assets/css/fn-item.css">
     <script src="./assets/js/init.js"></script>
     <script src="./assets/js/popup.js"></script>
     <script src="./assets/js/fn/rand-stu.js"></script>
@@ -112,6 +50,7 @@
 <body>
 <header id="head">
     <h1><span id="title" title="老师快乐系统">老师快乐系统</span></h1>
+<!--    <a href="./templates/login.html"></a>-->
 </header>
 <article id="body">
     <div id="usage-area">
@@ -149,25 +88,26 @@
     <p id="copyright">&copy; 2022-2023 Horean</p>
 </footer>
 <script>
-    let title = document.querySelector("#title");
-    title.addEventListener("click", function () {
-        location.reload();
-    });
-
-    let fnItems = [];
-    let fnList = document.querySelector("#fn-list");
-    let fnListReq = new XMLHttpRequest();
-    fnListReq.open("get", "./assets/data/functions.json");
-    fnListReq.send(null);
-    fnListReq.addEventListener("load", function () {
-        new Promise((resolve) => {
-            initElements(fnList, fnListReq);
-            resolve();
-        }).then(() => {
-            initFunctions();
+    addEventListener("load", function () {
+        let title = document.querySelector("#title");
+        title.addEventListener("click", function () {
+            location.reload();
         });
+
+        let fnList = document.querySelector("#fn-list");
+        let fnListReq = new XMLHttpRequest();
+        fnListReq.open("get", "./assets/data/functions.json");
+        fnListReq.send(null);
+        fnListReq.addEventListener("load", function () {
+            new Promise((resolve) => {
+                initElements(fnList, fnListReq);
+                resolve();
+            }).then(() => {
+                initFunctions();
+            });
+        });
+        initPopup();
     });
-    initPopup();
 </script>
 </body>
 </html>

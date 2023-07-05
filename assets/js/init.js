@@ -1,3 +1,5 @@
+let fnItems = [];
+
 function initElements(fnList, fnListReq) {
     let data = JSON.parse(fnListReq.responseText);
     for (let i = 0; i < data.length; i++) {
@@ -31,7 +33,7 @@ function initFunctions() {
         let fnItem = fnItems[i];
         let fnItemInfo = fnItem.querySelector(".fn-item-info");
         let fnItemReq = new XMLHttpRequest();
-        fnItemReq.open("get", `./templates/${fnItem.id}.html`);
+        fnItemReq.open("get", `./templates/fn/${fnItem.id}.html`);
         fnItemReq.send(null);
         fnItemReq.addEventListener("load", function () {
             fnItemInfo.innerHTML = fnItemReq.responseText;
