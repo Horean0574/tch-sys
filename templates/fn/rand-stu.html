@@ -7,16 +7,17 @@
         position: absolute;
         width: calc(50% - 20px);
         height: 430px;
-        border-right: solid 1px grey;
-    }
-
-    .rand-stu[data-fn-id="rand-part"] {
-        margin-bottom: 1em;
+        border-right: solid 1px gray;
     }
 
     .rand-stu[data-fn-cls="pm-btn"] {
         width: 32px;
         font-size: 24px;
+        padding: 1px 3px;
+    }
+
+    .rand-stu[data-fn-cls="rand-opt-btn"] {
+        padding: 3px 8px;
     }
 
     .rand-stu[data-fn-id="stu-num"] {
@@ -46,8 +47,21 @@
     }
 
     .rand-stu[data-fn-id="find-cont"] {
-        padding: 3px;
+        padding: 5px;
         font-size: 18px;
+        border-color: lightgray;
+        border-style: solid;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 150ms ease-in-out;
+    }
+
+    .rand-stu[data-fn-id="find-cont"]:hover {
+        border-color: var(--form-pre-color);
+    }
+
+    .rand-stu[data-fn-id="find-cont"]:focus {
+        border-color: var(--form-aft-color);
     }
 
     .rand-stu[data-fn-id="right-panel"] {
@@ -65,10 +79,14 @@
         overflow-y: scroll;
     }
 
-    .rand-stu[data-fn-id="empty-text"] {
+    .rand-stu[data-fn-id="empty-text"], .rand-stu[data-fn-id="find-none-text"] {
         list-style-type: none;
-        color: grey;
+        color: gray;
         text-align: center;
+    }
+
+    .rand-stu[data-fn-id="find-none-text"] {
+        display: none;
     }
 
     .rand-stu[data-fn-id="return-btn"] {
@@ -78,7 +96,7 @@
     }
 
     .rand-stu[data-fn-id="return-btn-text"] {
-        color: grey;
+        color: gray;
         cursor: pointer;
     }
 
@@ -99,31 +117,38 @@
 </style>
 <div class="rand-stu" data-fn-id="opt-page">
     <section class="rand-stu" data-fn-id="left-panel">
-        <div class="rand-stu" data-fn-id="rand-part">
+        <div class="rand-stu fn-part" data-fn-id="rand-part">
             <span class="rand-stu">学生个数：</span>
-            <button class="rand-stu" data-fn-cls="pm-btn" data-fn-id="minus-btn">-</button>
-            <span class="rand-stu" data-fn-id="stu-num" contenteditable="true">5</span>
-            <button class="rand-stu" data-fn-cls="pm-btn" data-fn-id="plus-btn">+</button>
+            <button class="rand-stu general-btn" data-fn-cls="pm-btn" data-fn-id="minus-btn">-</button>
+            <span class="rand-stu" data-fn-id="stu-num" contenteditable>5</span>
+            <button class="rand-stu general-btn" data-fn-cls="pm-btn" data-fn-id="plus-btn">+</button>
             <span class="rand-stu" data-fn-id="stu-num-tip">( 1 &le; n &le; 50 )</span>
             <br>
             <label style="margin-bottom: 6px; display: inline-block;">
                 <input class="rand-stu" data-fn-id="rdp-box" type="checkbox" checked>
-                <span class="rand-stu fs18">智能去重</span>
+                <span class="rand-stu" style="font-size: 18px;">智能去重</span>
             </label>
             <br>
-            <button class="rand-stu" data-fn-id="randing">随机抽取</button>
-            <button class="rand-stu" data-fn-id="clearing">清空面板</button>
+            <button class="rand-stu general-btn" data-fn-cls="rand-opt-btn" data-fn-id="randing">随机抽取</button>
+            <button class="rand-stu general-btn" data-fn-cls="rand-opt-btn" data-fn-id="clearing">清空面板</button>
         </div>
-        <div class="rand-stu" data-fn-id="find-part">
+        <div class="rand-stu fn-part" data-fn-id="find-part">
             <span class="rand-stu">智能查找：</span>
             <label>
                 <input class="rand-stu" data-fn-id="find-cont" type="text" placeholder="查找内容">
             </label>
         </div>
+        <div class="rand-stu fn-part" data-fn-id="act-opt-part">
+            <span class="rand-stu">实时操控：</span>
+            <p class="rand-stu" style="color: gray; font-size: 16px">
+                即将更新：反向抽人、一键排序
+            </p>
+        </div>
     </section>
     <section class="rand-stu" data-fn-id="right-panel">
         <ul class="rand-stu" data-fn-id="stu-ul">
             <li class="rand-stu" data-fn-id="empty-text">空空如也~</li>
+            <li class="rand-stu" data-fn-id="find-none-text">没有找到哦~</li>
         </ul>
     </section>
 </div>

@@ -7,30 +7,16 @@ let unrealStu = [];
 function randStuMain() {
     function checkStuNum() {
         if (stuNum.innerHTML === "") stuNum.innerHTML = "1";
-        if (!(/^\\d+$/.test(stuNum.innerHTML))) {
-            stuNum.innerHTML = stuNum.innerHTML.replace(/\D/g, "");
-        }
         let stuNumN = parseInt(stuNum.innerHTML);
         minusBtn.disabled = (stuNumN <= 1);
         plusBtn.disabled = (stuNumN >= realStuNums);
         minusBtn.style.cursor = stuNumN <= 1 ? "not-allowed" : "pointer";
         plusBtn.style.cursor = stuNumN >= realStuNums ? "not-allowed" : "pointer";
         if (stuNumN < 1 || stuNumN > realStuNums) {
-            stuNumTip.style.color = "red";
-            stuNumTip.style.transform = "translateX(-4px)";
+            stuNumTip.style.animation = "tipShake 320ms ease-in-out both";
             setTimeout(() => {
-                stuNumTip.style.transform = "translateX(7px)";
-                setTimeout(() => {
-                    stuNumTip.style.transform = "translateX(-6px)";
-                    setTimeout(() => {
-                        stuNumTip.style.transform = "translateX(6px)";
-                        setTimeout(() => {
-                            stuNumTip.style.transform = "";
-                            stuNumTip.style.color = "black";
-                        }, 80);
-                    }, 80);
-                }, 80);
-            }, 80);
+                stuNumTip.style.animation = "";
+            }, 320);
         }
         if (stuNumN < 1) stuNum.innerHTML = "1";
         if (stuNumN > realStuNums) stuNum.innerHTML = realStuNums.toString();
@@ -60,6 +46,31 @@ function randStuMain() {
         return rdn;
     }
 
+    function findRandRes() {
+        if (stuUlState.code === 0) return;
+
+        if (stuUl.contains(findNoneText)) {
+            stuUl.removeChild(findNoneText);
+        }
+
+        let cont = findCont.value;
+        let cnt = 0;
+        for (let i in rdRes) {
+            let stuNum = rdRes[i];
+            let stuName = stuInfo[stuNum]["name"];
+            if (stuNum.toString().includes(cont) || stuName.includes(cont)) {
+                stuUl.children[i].style.display = "list-item";
+                ++cnt;
+            } else {
+                stuUl.children[i].style.display = "none";
+            }
+        }
+        if (!cnt) {
+            stuUl.appendChild(findNoneText);
+        }
+    }
+
+    // Get elements from HTML
     let info = document.querySelector(".rand-stu-info");
     let optPage = getFnEleById(info, "opt-page");
     let stuShow = getFnEleById(info, "stu-show");
@@ -81,9 +92,19 @@ function randStuMain() {
     let findCont = getFnEleById(findPart, "find-cont");
     let stuUl = getFnEleById(rightPanel, "stu-ul");
     let emptyText = getFnEleById(stuUl, "empty-text");
+    let findNoneText = getFnEleById(stuUl, "find-none-text");
+    let stuUlState = {code: 0, num: 0};
 
     stuNumTip.innerHTML = `( 1 &le; n &le; ${realStuNums} )`;
+    stuUl.removeChild(findNoneText);
+    findNoneText.style.display = "list-item";
 
+    // Adding event listener
+    stuNum.addEventListener("keypress", function (e) {
+        if (isNaN(String.fromCharCode(e.which))) {
+            e.preventDefault();
+        }
+    });
     stuNum.addEventListener("input", checkStuNum);
     minusBtn.addEventListener("click", function () {
         let nextNum = parseInt(stuNum.innerHTML) - 1;
@@ -99,6 +120,10 @@ function randStuMain() {
         stuUl.innerHTML = "";
         rdRes = [];
         let stuNumN = parseInt(stuNum.innerHTML);
+
+        if (!stuNumN) return; // avoid the change of "stuUlState"
+        stuUlState = {code: 1, num: stuNumN};
+
         while (stuNumN--) {
             let rStuN = rand();
             rdRes.push(rStuN);
@@ -109,7 +134,7 @@ function randStuMain() {
             stu.style.width = "96%";
             stu.style.margin = "5px 0";
             stu.style.paddingBottom = "3px";
-            stu.style.borderBottom = "solid 1px lightgrey";
+            stu.style.borderBottom = "solid 1px lightgray";
             stu.style.cursor = "pointer";
             stuNum.style.display = "inline-block";
             stuNum.style.width = "40px";
@@ -152,6 +177,9 @@ function randStuMain() {
                 }, 300);
             });
             stuUl.appendChild(stu);
+            if (findCont.value !== "") {
+                findRandRes();
+            }
         }
         rdpList = [];
     });
@@ -159,20 +187,17 @@ function randStuMain() {
         stuUl.innerHTML = emptyText.outerHTML;
     });
 
+    let composite = false;
     findCont.addEventListener("input", function () {
-        let cont = findCont.value;
-        // let resNum = 0;
-        if (/[a-zA-Z]+/.test(cont)) return;
-        for (let i in rdRes) {
-            let stuNum = rdRes[i];
-            let stuName = stuInfo[stuNum]["name"];
-            if (stuNum.toString().includes(cont) || stuName.includes(cont)) {
-                stuUl.children[i].style.display = "list-item";
-                // ++resNum;
-            } else {
-                stuUl.children[i].style.display = "none";
-            }
-        }
+        if (composite) return;
+        findRandRes();
+    });
+    findCont.addEventListener("compositionstart", function () {
+        composite = true;
+    });
+    findCont.addEventListener("compositionend", function () {
+        composite = false;
+        findRandRes();
     });
 
     returnBtnText.addEventListener("mouseenter", function () {
