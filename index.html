@@ -16,10 +16,6 @@
             text-align: center;
         }
 
-        #copyright {
-            user-select: text;
-        }
-
         #title {
             color: #46b3fa;
             cursor: pointer;
@@ -38,6 +34,12 @@
             margin: 0;
             font-size: 24px;
         }
+
+        #foot {
+            width: calc(100% - 8px);
+            position: absolute;
+            bottom: 1em;
+        }
     </style>
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
@@ -50,7 +52,7 @@
 <body>
 <header id="head">
     <h1><span id="title" title="老师快乐系统">老师快乐系统</span></h1>
-<!--    <a href="./templates/login.html"></a>-->
+    <!--    <a href="./templates/login.html"></a>-->
 </header>
 <article id="body">
     <div id="usage-area">
@@ -62,8 +64,8 @@
             <ul id="fn-list">
                 <li id="example-fn" class="fn-item">
                     <h2 class="fn-item-title">Example Function</h2>
-                    <p class="fn-item-desc">Example Function: an example.</p>
-                    <button class="fn-item-btn">立即使用</button>
+                    <p class="fn-item-desc">Example Function: This is an example.</p>
+                    <button class="fn-item-btn general-btn">立即使用</button>
                     <div class="fn-item-info">nothing</div>
                 </li>
             </ul>
@@ -85,7 +87,7 @@
     </div>
 </div>
 <footer id="foot">
-    <p id="copyright">&copy; 2022-2023 Horean</p>
+    <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
 </footer>
 <script>
     addEventListener("load", function () {
@@ -93,6 +95,10 @@
         title.addEventListener("click", function () {
             location.reload();
         });
+
+        let thisYear = document.querySelector("#this-year");
+        let date = new Date();
+        thisYear.innerHTML = "-" + date.getFullYear();
 
         let fnList = document.querySelector("#fn-list");
         let fnListReq = new XMLHttpRequest();

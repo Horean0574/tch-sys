@@ -9,6 +9,7 @@
     filter: blur(32px);
     opacity: 0;
     transition: filter 250ms ease-in-out, opacity 450ms ease-in-out;
+    z-index: 99;
 }
 
 #popup {
@@ -22,6 +23,7 @@
     border-radius: 1em;
     padding: 8px;
     box-shadow: 0 0 5px darkgrey;
+    z-index: 100;
 }
 
 #popup-nav {

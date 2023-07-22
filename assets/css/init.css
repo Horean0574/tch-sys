@@ -1,3 +1,8 @@
+:root {
+    --form-pre-color: orange;
+    --form-aft-color: deepskyblue;
+}
+
 @keyframes cardFlip {
     0% {
         filter: blur(0);
@@ -13,10 +18,52 @@
     }
 }
 
-.fs16 {
-    font-size: 16px;
+@keyframes tipShake {
+    0% {
+        color: red;
+        transform: translateX(-4px);
+    }
+    25% {
+        transform: translateX(7px);
+    }
+    50% {
+        transform: translateX(-6px);
+    }
+    75% {
+        transform: translateX(6px);
+    }
+    100% {
+        color: black;
+        transform: none;
+    }
 }
 
-.fs18 {
-    font-size: 18px;
+html {
+    min-height: 100vh;
+}
+
+body {
+    min-height: 100%;
+}
+
+.general-btn {
+    padding: 3px 8px;
+    background-color: white;
+    border-color: lightgray;
+    border-style: solid;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 150ms ease-in-out;
+}
+
+.general-btn:hover {
+    border-color: var(--form-pre-color);
+}
+
+.general-btn:active {
+    border-color: var(--form-aft-color);
+}
+
+.fn-part {
+    margin-bottom: 1em;
 }

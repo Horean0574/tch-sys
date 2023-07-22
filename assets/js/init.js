@@ -13,7 +13,7 @@ function initElements(fnList, fnListReq) {
         newFnItemDesc.className = "fn-item-desc";
         newFnItemDesc.innerHTML = data[i]["desc"];
         let newFnItemBtn = document.createElement("button");
-        newFnItemBtn.className = "fn-item-btn";
+        newFnItemBtn.className = "fn-item-btn general-btn";
         newFnItemBtn.innerHTML = "立即使用";
         let newFnItemInfo = document.createElement("div");
         newFnItemInfo.className = "fn-item-info";
