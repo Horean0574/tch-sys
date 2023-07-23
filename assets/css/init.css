@@ -38,8 +38,13 @@
     }
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     min-height: 100vh;
+    position: relative;
 }
 
 body {

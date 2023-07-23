@@ -16,13 +16,13 @@
     position: fixed;
     left: calc((100vw - 868px) / 2);
     top: calc((100vh - 568px) / 2);
-    width: 850px;
-    height: 550px;
+    width: 868px; /* 850px + 8px * 2 + 1px * 2 */
+    height: 568px; /* 550px + 8px * 2 + 1px * 2 */
     background-color: whitesmoke;
     border: solid grey 1px;
     border-radius: 1em;
     padding: 8px;
-    box-shadow: 0 0 5px darkgrey;
+    box-shadow: 0 0 5px darkgray;
     z-index: 100;
 }
 

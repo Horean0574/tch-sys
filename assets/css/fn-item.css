@@ -5,8 +5,8 @@
 }
 
 .fn-item {
-    width: 300px;
-    margin: 0 8px;
+    width: 322px; /* 300px + 10px * 2 + 1px * 2 */
+    margin: 0 8px 16px;
     padding: 10px;
     border: solid grey 1px;
     border-radius: 1em;
