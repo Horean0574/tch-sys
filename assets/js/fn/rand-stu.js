@@ -143,11 +143,11 @@ function randStuMain() {
     }
 
     function flipShowState(handler) {
-        ele.showState.style.animation = "cardFlip 600ms ease-in-out both";
+        ele.showState.style.animation = "cardFlip 450ms ease-in-out both";
         setTimeout(() => {
             handler();
-            setTimeout(() => ele.showState.style.animation = "", 300);
-        }, 300);
+            setTimeout(() => ele.showState.style.animation = "", 225);
+        }, 225);
     }
 
     function updateShowState() {
