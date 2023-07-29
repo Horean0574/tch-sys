@@ -1,6 +1,8 @@
 :root {
-    --form-pre-color: orange;
-    --form-aft-color: deepskyblue;
+    --fe-pre-color: orange;
+    --fe-aft-color: deepskyblue;
+    --fd-pre-color: darkgray;
+    --fd-aft-color: #9c9c9c;
 }
 
 @keyframes cardFlip {
@@ -61,14 +63,18 @@ body {
     transition: border-color 150ms ease-in-out;
 }
 
-.general-btn:hover {
-    border-color: var(--form-pre-color);
+.general-btn:enabled:hover {
+    border-color: var(--fe-pre-color);
 }
 
-.general-btn:active {
-    border-color: var(--form-aft-color);
+.general-btn:enabled:active {
+    border-color: var(--fe-aft-color);
 }
 
-.fn-part {
-    margin-bottom: 1em;
+.general-btn:disabled:hover {
+    border-color: var(--fd-pre-color);
+}
+
+.general-btn:disabled:active {
+    border-color: var(--fd-aft-color);
 }

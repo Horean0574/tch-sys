@@ -27,7 +27,7 @@ function initElements(fnList, fnListReq) {
 }
 
 function initFunctions() {
-    console.log(fnItems);
+    // console.log(fnItems);
     let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
     for (let i = 0; i < fnItems.length; i++) {
         let fnItem = fnItems[i];
