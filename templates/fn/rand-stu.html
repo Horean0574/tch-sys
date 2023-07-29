@@ -1,6 +1,6 @@
 <style>
-    .rand-stu[data-fn-id="stu-show"] {
-        display: none;
+    .fn-part {
+        margin-bottom: 1em;
     }
 
     .rand-stu[data-fn-id="left-panel"] {
@@ -57,11 +57,11 @@
     }
 
     .rand-stu[data-fn-id="find-cont"]:hover {
-        border-color: var(--form-pre-color);
+        border-color: var(--fe-pre-color);
     }
 
     .rand-stu[data-fn-id="find-cont"]:focus {
-        border-color: var(--form-aft-color);
+        border-color: var(--fe-aft-color);
     }
 
     .rand-stu[data-fn-id="right-panel"] {
@@ -89,6 +89,12 @@
         display: none;
     }
 
+    .rand-stu[data-fn-id="stu-show"] {
+        height: 100%;
+        position: relative;
+        display: none;
+    }
+
     .rand-stu[data-fn-id="return-btn"] {
         position: relative;
         left: 16px;
@@ -98,6 +104,10 @@
     .rand-stu[data-fn-id="return-btn-text"] {
         color: gray;
         cursor: pointer;
+    }
+
+    .rand-stu[data-fn-id="return-btn-text"]:hover {
+        color: darkgray;
     }
 
     .rand-stu[data-fn-id="show-state"] {
@@ -113,6 +123,75 @@
 
     .rand-stu[data-fn-id="state-name"] {
         font-size: 80px;
+    }
+
+    .rand-stu[data-fn-id="page-opts"] {
+        position: absolute;
+        right: 0;
+        bottom: 1em;
+        font-size: 20px;
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"] {
+        padding: 0 5px;
+        border: none;
+        outline: none;
+        color: gray;
+        font-size: 20px;
+        cursor: pointer;
+        transition: color 150ms ease-in-out;
+    }
+
+    /* enabled */
+    .rand-stu[data-fn-cls="page-opts-btn"]:enabled:hover {
+        color: var(--fe-pre-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:enabled:hover .rand-stu[data-fn-cls="page-opts-icon"] {
+        border-color: var(--fe-pre-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:enabled:active {
+        color: var(--fe-aft-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:enabled:active .rand-stu[data-fn-cls="page-opts-icon"] {
+        border-color: var(--fe-aft-color);
+    }
+
+    /* disabled */
+    .rand-stu[data-fn-cls="page-opts-btn"]:disabled:hover {
+        color: var(--fd-pre-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:disabled:hover .rand-stu[data-fn-cls="page-opts-icon"] {
+        border-color: var(--fd-pre-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:disabled:active {
+        color: var(--fd-aft-color);
+    }
+
+    .rand-stu[data-fn-cls="page-opts-btn"]:disabled:active .rand-stu[data-fn-cls="page-opts-icon"] {
+        border-color: var(--fd-aft-color);
+    }
+
+    .rand-stu[data-fn-id="prv-stu-btn"]/*, .rand-stu[data-fn-id="nxt-stu-btn"]*/ {
+        border-right: solid 1px gray;
+    }
+
+    .rand-stu[data-fn-cls="page-opts-icon"] {
+        display: inline-block;
+        box-sizing: content-box;
+        width: 18px;
+        height: 18px;
+        padding: 3px;
+        border: solid 1px lightgray;
+        border-radius: 50%;
+        font-size: 16px;
+        text-align: center;
+        line-height: 18px;
+        transition: border-color 150ms ease-in-out;
     }
 </style>
 <div class="rand-stu" data-fn-id="opt-page">
@@ -141,7 +220,7 @@
         <div class="rand-stu fn-part" data-fn-id="act-opt-part">
             <span class="rand-stu">实时操控：</span>
             <p class="rand-stu" style="color: gray; font-size: 16px">
-                即将更新：反向抽人、一键排序
+                即将更新：反向抽取、一键排序
             </p>
         </div>
     </section>
@@ -163,4 +242,16 @@
         <span class="rand-stu" data-fn-id="state-name">X</span>
         <span class="rand-stu">被选中！</span>
     </h1>
+    <section class="rand-stu" data-fn-id="page-opts">
+        <button class="rand-stu" data-fn-cls="page-opts-btn" data-fn-id="prv-stu-btn" title="上一位">
+            <span class="rand-stu" data-fn-cls="page-opts-icon">&lt;</span> 上一位
+        </button>
+        <button class="rand-stu" data-fn-cls="page-opts-btn" data-fn-id="nxt-stu-btn" title="下一位">
+            下一位 <span class="rand-stu" data-fn-cls="page-opts-icon">&gt;</span>
+        </button>
+        <button class="rand-stu" data-fn-cls="page-opts-btn" data-fn-id="lucky-stu-btn" title="Lucky One"
+                style="display: none">
+            <span class="rand-stu" data-fn-cls="page-opts-icon">&quest;</span> Lucky One
+        </button>
+    </section>
 </div>
