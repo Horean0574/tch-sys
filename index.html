@@ -40,6 +40,23 @@
             position: absolute;
             bottom: 1em;
         }
+
+        #loading-cover {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            background: ghostwhite;
+        }
+
+        #loading-text {
+            margin: 0;
+            text-align: center;
+            line-height: 100vh;
+            font-size: 8vmin;
+        }
     </style>
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
@@ -62,11 +79,11 @@
         <hr>
         <section>
             <ul id="fn-list">
-                <li id="example-fn" class="fn-item">
+                <li id="example-fn" class="fn-item" title="XD">
                     <h2 class="fn-item-title">Example Function</h2>
-                    <p class="fn-item-desc">Example Function: This is an example.</p>
+                    <p class="fn-item-desc">This is an example.<br>But, how do you find me?</p>
                     <button class="fn-item-btn general-btn">立即使用</button>
-                    <div class="fn-item-info">nothing</div>
+                    <div class="fn-item-info">What?! You see me!</div>
                 </li>
             </ul>
         </section>
@@ -89,6 +106,9 @@
 <footer id="foot">
     <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
 </footer>
+<section id="loading-cover">
+    <p id="loading-text">Loading...</p>
+</section>
 <script>
     addEventListener("load", function () {
         let title = document.querySelector("#title");
@@ -113,6 +133,9 @@
             });
         });
         initPopup();
+
+        let loadingCover = document.querySelector("#loading-cover");
+        loadingCover.style.display = "none";
     });
 </script>
 </body>
