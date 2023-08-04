@@ -50,8 +50,31 @@ html {
 }
 
 body {
+    height: auto;
     min-height: 100%;
 }
+
+.general-link {
+    text-decoration: none;
+    color: gray;
+    transition: color 150ms ease-in-out;
+}
+
+.general-link:hover {
+    color: var(--fe-pre-color);
+}
+
+.general-link:active {
+    color: var(--fe-aft-color);
+}
+
+/*.general-link:disabled:hover {*/
+/*    color: var(--fd-pre-color);*/
+/*}*/
+
+/*.general-link:disabled:active {*/
+/*    color: var(--fd-aft-color);*/
+/*}*/
 
 .general-btn {
     padding: 3px 8px;
