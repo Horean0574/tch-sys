@@ -1,6 +1,4 @@
-let stuList = [];
 let stuInfo = [];
-let stuNumEnd = 0;
 let realStuNums = 0;
 let unrealStu = [];
 
@@ -12,6 +10,14 @@ class extRes {
 }
 
 function randStuMain() {
+    function getStuName(stuId) {
+        return stuInfo[stuId - 1]["name"];
+    }
+
+    function getStuGender(stuId) {
+        return stuInfo[stuId - 1]["gender"];
+    }
+
     function checkStuNum() {
         if (ele.stuNum.innerHTML === "") ele.stuNum.innerHTML = "1";
         let stuNumN = parseInt(ele.stuNum.innerHTML);
@@ -32,7 +38,7 @@ function randStuMain() {
     }
 
     function rand() {
-        let rdn = Math.floor(Math.random() * (stuNumEnd - rdpList.length - unrealStu.length) + 1);
+        let rdn = Math.floor(Math.random() * (stuInfo.length - rdpList.length - unrealStu.length) + 1);
         if (ele.rdpBox.checked) {
             for (let i = 0; i < rdpList.length; i++) {
                 if (rdn >= rdpList[i]) rdn++;
@@ -56,7 +62,7 @@ function randStuMain() {
     }
 
     function getStuColor(stuNum) {
-        return stuInfo[stuNum]["gender"] === 1 ? "deepskyblue" : "hotpink";
+        return getStuGender(stuNum) === 1 ? "deepskyblue" : "hotpink";
     }
 
     function createResItem(stuN, key) {
@@ -74,7 +80,7 @@ function randStuMain() {
         stuNum.style.display = "inline-block";
         stuNum.style.width = "40px";
         stuNum.innerHTML = stuN.toString();
-        stuName.innerHTML = stuInfo[stuN]["name"];
+        stuName.innerHTML = getStuName(stuN);
         let space = stuNum.innerHTML.length === 2 ? "" : "&ensp;";
         stuNum.innerHTML = space + stuNum.innerHTML;
         stuIdx.style.display = "none";
@@ -109,7 +115,7 @@ function randStuMain() {
             ele.info.style.animation = "cardFlip 600ms ease-in-out both";
             setTimeout(() => {
                 stateNum.innerHTML = stuN.toString();
-                stateName.innerHTML = stuInfo[stuN]["name"];
+                stateName.innerHTML = getStuName(stuN);
                 stateName.style.color = stuColor;
                 ele.optPage.style.display = "none";
                 ele.stuShow.style.display = "block";
@@ -124,7 +130,7 @@ function randStuMain() {
     }
 
     function findRandRes() {
-        if (states.randed.code === 0) return;
+        if (states.randed.code === 0 || !states.randed.len) return;
 
         if (ele.stuUl.contains(ele.findNoneText)) {
             ele.stuUl.removeChild(ele.findNoneText);
@@ -134,7 +140,7 @@ function randStuMain() {
         let cnt = 0;
         for (let i in numRes[curResKey]) {
             let stuNum = numRes[curResKey][i];
-            let stuName = stuInfo[stuNum]["name"];
+            let stuName = getStuName(stuNum);
             if (stuNum.toString().includes(cont) || stuName.includes(cont)) {
                 ele.stuUl.children[i].style.display = "list-item";
                 ++cnt;
@@ -159,7 +165,7 @@ function randStuMain() {
         let stateNum = getFnEleById(ele.showState, "state-num");
         let stateName = getFnEleById(ele.showState, "state-name");
         let stuNum = numRes[curResKey][states.showing.idx];
-        let stuName = stuInfo[stuNum]["name"];
+        let stuName = getStuName(stuNum);
         stateName.style.color = getStuColor(stuNum);
         stateNum.innerHTML = stuNum.toString();
         stateName.innerHTML = stuName;
@@ -277,7 +283,7 @@ function randStuMain() {
             eleRes.rd.push(stu);
         }
 
-        for (let i = 1; i <= stuNumEnd; ++i) {
+        for (let i = 1; i <= stuInfo.length; ++i) {
             if (unrealStu.includes(i) || numRes.rd.includes(i)) continue;
             numRes.rv.push(i);
             let stu = createResItem(i, "rv");
@@ -296,7 +302,8 @@ function randStuMain() {
         ele.randing.focus();
     });
     ele.clearing.addEventListener("click", function () {
-        ele.stuUl.innerHTML = ele.emptyText.outerHTML;
+        ele.stuUl.innerHTML = "";
+        ele.stuUl.appendChild(ele.emptyText);
         states.randed.code = 0;
         states.randed.len = 0;
     });
@@ -315,12 +322,15 @@ function randStuMain() {
     });
 
     ele.rvrBox.addEventListener("input", function () {
-        if (!states.randed.len) return;
         curResKey = ele.rvrBox.checked ? "rv" : "rd";
         states.randed.len = eleRes[curResKey].length;
         ele.stuUl.innerHTML = "";
         for (let i = 0; i < eleRes[curResKey].length; ++i) {
             ele.stuUl.appendChild(eleRes[curResKey][i]);
+        }
+        if (!states.randed.len) {
+            ele.stuUl.innerHTML = "";
+            ele.stuUl.appendChild(ele.emptyText);
         }
     });
 
@@ -358,24 +368,21 @@ function randStuMain() {
     ele.luckyStuBtn.addEventListener("click", null);
 }
 
-function randStuFn(students) {
+function randStuFn() {
     ~function () {
-        stuList = [];
         stuInfo = [];
-        stuNumEnd = 0;
         realStuNums = 0;
         unrealStu = [];
     }();
 
-    stuInfo = students;
-    stuNumEnd = stuInfo.length - 1;
-    for (let i = 0; i <= stuNumEnd; i++) {
-        if (stuInfo[i] !== null) {
+    let settings = JSON.parse(localStorage["settings"])["rand-stu"];
+    stuInfo = settings["students"];
+    for (let i = 0; i < stuInfo.length; i++) {
+        if (stuInfo[i]["name"] !== null) {
             realStuNums++;
-        } else if (i) {
-            unrealStu.push(i);
+        } else {
+            unrealStu.push(stuInfo[i]["id"]);
         }
     }
-    stuList.fill(0, 0, stuNumEnd);
     randStuMain();
 }

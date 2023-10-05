@@ -2,11 +2,101 @@
   {
     "id": "rand-stu",
     "title": "随机抽人",
-    "desc": "帮助老师快速抽取学生回答问题的神器。"
+    "desc": "帮助老师快速抽取学生回答问题的神器。",
+    "settings": {
+      "students": [
+        {
+          "id": 1,
+          "name": "张三",
+          "gender": 1
+        },
+        {
+          "id": 2,
+          "name": "李四",
+          "gender": 1
+        },
+        {
+          "id": 3,
+          "name": "小明",
+          "gender": 1
+        },
+        {
+          "id": 4,
+          "name": "小刚",
+          "gender": 1
+        },
+        {
+          "id": 5,
+          "name": "米小圈",
+          "gender": 1
+        },
+        {
+          "id": 6,
+          "name": "铁头",
+          "gender": 1
+        },
+        {
+          "id": 7,
+          "name": "Jack",
+          "gender": 1
+        },
+        {
+          "id": 8,
+          "name": "Robinson",
+          "gender": 1
+        },
+        {
+          "id": 9,
+          "name": "Horean",
+          "gender": 1
+        },
+        {
+          "id": 10,
+          "name": "可可",
+          "gender": 2
+        },
+        {
+          "id": 11,
+          "name": "丽丽",
+          "gender": 2
+        },
+        {
+          "id": 12,
+          "name": "小美",
+          "gender": 2
+        },
+        {
+          "id": 13,
+          "name": "春花",
+          "gender": 2
+        },
+        {
+          "id": 14,
+          "name": "春雪",
+          "gender": 2
+        },
+        {
+          "id": 15,
+          "name": "Lily",
+          "gender": 2
+        },
+        {
+          "id": 16,
+          "name": "Honey",
+          "gender": 2
+        },
+        {
+          "id": 17,
+          "name": "Emmie",
+          "gender": 2
+        }
+      ]
+    }
   },
   {
     "id": "count-down",
     "title": "计时器",
-    "desc": "帮助老师规定学生在指定时间内完成任务&amp;测算学生完成任务的时间的神器。"
+    "desc": "帮助老师规定学生在指定时间内完成任务&amp;测算学生完成任务的时间的神器。",
+    "settings": {}
   }
 ]

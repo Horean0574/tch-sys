@@ -1,8 +1,15 @@
 :root {
+    --theme-blue: #46b3fa;
+    --theme-orange: orange;
     --fe-pre-color: orange;
     --fe-aft-color: deepskyblue;
     --fd-pre-color: darkgray;
     --fd-aft-color: #9c9c9c;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/JetBrainsMono-Regular.woff2");
 }
 
 @keyframes cardFlip {
@@ -57,6 +64,7 @@ body {
 .general-link {
     text-decoration: none;
     color: gray;
+    cursor: pointer;
     transition: color 150ms ease-in-out;
 }
 
@@ -83,6 +91,7 @@ body {
     border-style: solid;
     border-radius: 8px;
     outline: none;
+    cursor: pointer;
     transition: border-color 150ms ease-in-out;
 }
 

@@ -1,0 +1,84 @@
+<style>
+    .nav-import[data-nav-id="upload-panel"] {
+        position: absolute;
+        width: calc(50% - 19px);
+        height: 430px;
+        border-right: solid 1px gray;
+    }
+
+    .nav-import[data-nav-cls="panel-title"] {
+        margin: 0.5em 0;
+        text-align: center;
+        color: forestgreen;
+    }
+
+    .nav-import[data-nav-id="upload-area"] {
+        padding-bottom: 5px;
+    }
+
+    .nav-import[data-nav-id="upload-btn-org"] {
+        display: none;
+    }
+
+    .nav-import[data-nav-id="upload-val"] {
+        font-size: 16px;
+        color: gray;
+    }
+
+    .nav-import[data-nav-id="preview-panel"] {
+        position: absolute;
+        width: calc(50% - 20px);
+        height: 430px;
+        left: 50%;
+    }
+
+    .nav-import[data-nav-id="preview-cont-out"] {
+        /*position: relative;*/
+    }
+
+    .nav-import[data-nav-id="preview-cont"] {
+        margin: 0.5em 2em;
+        padding: 1em;
+        display: inline-block;
+        width: calc(100% - 4em);
+        height: 350px;
+        background-color: white;
+        border: solid 2px lightgray;
+        border-radius: 8px;
+        outline: none;
+        resize: none;
+        overflow: auto;
+        font-family: "JetBrains Mono", monospace;
+        transition: border-color 150ms ease-in-out;
+    }
+
+    .nav-import[data-nav-id="preview-cont"]:hover {
+        border-color: var(--fe-pre-color);
+    }
+
+    .nav-import[data-nav-id="preview-cont"]:focus {
+        border-color: var(--fe-aft-color);
+    }
+</style>
+<div class="nav-import" data-nav-id="container">
+    <section class="nav-import" data-nav-id="upload-panel">
+        <h4 class="nav-import" data-nav-cls="panel-title" data-nav-id="upload-title">上传</h4>
+        <form class="nav-import" data-nav-id="upload-form" action="" enctype="multipart/form-data">
+            <div class="nav-import" data-nav-id="upload-area">
+                <input class="nav-import" data-nav-id="upload-btn-org" type="file" accept="application/json">
+                <button class="nav-import general-btn" data-nav-id="upload-btn">上传文件</button>
+                <span class="nav-import" data-nav-id="upload-val">请选择一个文件哦~</span>
+            </div>
+            <input class="nav-import general-btn" data-nav-id="submit-btn" type="submit" value="确认导入">
+            <input class="nav-import general-btn" data-nav-id="reset-btn" type="reset" value="重置表单">
+        </form>
+    </section>
+    <section class="nav-import" data-nav-id="preview-panel">
+        <h4 class="nav-import" data-nav-cls="panel-title" data-nav-id="preview-title">预览</h4>
+        <div class="nav-import" data-nav-id="preview-cont-out">
+            <label>
+                <textarea class="nav-import" data-nav-id="preview-cont" readonly spellcheck="false"></textarea>
+            </label>
+        </div>
+    </section>
+</div>

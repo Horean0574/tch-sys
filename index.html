@@ -13,17 +13,32 @@
         }
 
         #head, #body, #foot {
+            position: relative;
             text-align: center;
         }
 
+        #title-container {
+            display: inline-block;
+        }
+
         #title {
-            color: #46b3fa;
+            color: var(--theme-blue);
             cursor: pointer;
             transition: color 300ms ease-in-out;
         }
 
         #title:hover {
             color: skyblue;
+        }
+
+        #navbar {
+            position: absolute;
+            top: 2em;
+            right: 2em;
+        }
+
+        #sign-in-btn, #sign-up-btn {
+            margin: 0 0.3em;
         }
 
         #body {
@@ -69,13 +84,18 @@
     <link rel="stylesheet" href="./assets/css/fn-item.css">
     <script src="./assets/js/init.js"></script>
     <script src="./assets/js/popup.js"></script>
+    <script src="./assets/js/nav/import.js"></script>
     <script src="./assets/js/fn/rand-stu.js"></script>
     <script src="./assets/js/fn/count-down.js"></script>
 </head>
 <body>
 <header id="head">
-    <h1><span id="title" title="老师快乐系统">老师快乐系统</span></h1>
-    <!--    <a href="./templates/login.html"></a>-->
+    <h1 id="title-container">
+        <span id="title" title="老师快乐系统">老师快乐系统</span>
+    </h1>
+    <nav id="navbar">
+        <a id="import-btn" class="general-link">导入设置</a>
+    </nav>
 </header>
 <article id="body">
     <div id="usage-area">
@@ -110,7 +130,7 @@
     </div>
 </div>
 <footer id="foot">
-    <p><a class="general-link" href="https://gitee.com/Horean0574/teach-hpsys/" target="_blank">开源项目</a></p>
+    <p><a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a></p>
     <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
 </footer>
 <section id="loading-cover">
@@ -127,6 +147,11 @@
         let date = new Date();
         thisYear.innerHTML = "-" + date.getFullYear();
 
+        if (localStorage["settings"] === undefined) {
+            localStorage["settings"] = JSON.stringify({});
+        }
+
+        initNav();
         let fnList = document.querySelector("#fn-list");
         let fnListReq = new XMLHttpRequest();
         fnListReq.open("get", "./assets/data/functions.json");
