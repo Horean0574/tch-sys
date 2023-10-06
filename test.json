@@ -1,0 +1,137 @@
+{
+  "rand-stu": {
+    "students": [
+      {
+        "id": 1,
+        "name": "A",
+        "gender": 1
+      },
+      {
+        "id": 2,
+        "name": "B",
+        "gender": 1
+      },
+      {
+        "id": 3,
+        "name": "C",
+        "gender": 1
+      },
+      {
+        "id": 4,
+        "name": "D",
+        "gender": 1
+      },
+      {
+        "id": 5,
+        "name": "E",
+        "gender": 1
+      },
+      {
+        "id": 6,
+        "name": "F",
+        "gender": 1
+      },
+      {
+        "id": 7,
+        "name": "G",
+        "gender": 1
+      },
+      {
+        "id": 8,
+        "name": "H",
+        "gender": 1
+      },
+      {
+        "id": 9,
+        "name": "I",
+        "gender": 1
+      },
+      {
+        "id": 10,
+        "name": "J",
+        "gender": 1
+      },
+      {
+        "id": 11,
+        "name": "K",
+        "gender": 1
+      },
+      {
+        "id": 12,
+        "name": "L",
+        "gender": 1
+      },
+      {
+        "id": 13,
+        "name": "M",
+        "gender": 1
+      },
+      {
+        "id": 14,
+        "name": "N",
+        "gender": 1
+      },
+      {
+        "id": 15,
+        "name": "O",
+        "gender": 2
+      },
+      {
+        "id": 16,
+        "name": "P",
+        "gender": 2
+      },
+      {
+        "id": 17,
+        "name": "Q",
+        "gender": 2
+      },
+      {
+        "id": 18,
+        "name": "R",
+        "gender": 2
+      },
+      {
+        "id": 19,
+        "name": "S",
+        "gender": 2
+      },
+      {
+        "id": 20,
+        "name": "T",
+        "gender": 2
+      },
+      {
+        "id": 21,
+        "name": "U",
+        "gender": 2
+      },
+      {
+        "id": 22,
+        "name": "V",
+        "gender": 2
+      },
+      {
+        "id": 23,
+        "name": "W",
+        "gender": 2
+      },
+      {
+        "id": 24,
+        "name": "X",
+        "gender": 2
+      },
+      {
+        "id": 25,
+        "name": "Y",
+        "gender": 2
+      },
+      {
+        "id": 26,
+        "name": "Z",
+        "gender": 2
+      }
+    ]
+  },
+  "count-down": {}
+}
