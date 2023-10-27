@@ -77,9 +77,11 @@
     </style>
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
+    <link rel="stylesheet" href="./assets/css/notice.css">
     <link rel="stylesheet" href="./assets/css/fn-item.css">
     <script src="./assets/js/init.js"></script>
     <script src="./assets/js/popup.js"></script>
+    <script src="./assets/js/notice.js"></script>
     <script src="./assets/js/nav/import.js"></script>
     <script src="./assets/js/fn/rand-stu.js"></script>
     <script src="./assets/js/fn/count-down.js"></script>
@@ -125,6 +127,9 @@
         </section>
     </div>
 </div>
+<aside>
+    <div id="notice-area"></div>
+</aside>
 <footer id="foot">
     <p><a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a></p>
     <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
@@ -161,6 +166,7 @@
             });
         });
         initPopup();
+        initNotice();
 
         let loadingCover = document.querySelector("#loading-cover");
         loadingCover.style.display = "none";

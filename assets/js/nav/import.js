@@ -57,6 +57,10 @@ function importMain() {
     });
 
     ele.uploadBtnOrg.addEventListener("input", function () {
+        if (!this.files[0].name.endsWith(".json")) {
+            newNotice("请上传 JSON 格式文件！", "danger");
+            return;
+        }
         states.selected.code = 1;
         ele.uploadVal.style.color = "black";
         ele.uploadVal.innerHTML = this.files[0].name;
@@ -68,16 +72,17 @@ function importMain() {
     ele.submitBtn.addEventListener("click", function (e) {
         e.preventDefault();
         if (!states.selected.code) {
-            alert("请选择一个文件哦~");
+            newNotice("请选择一个文件哦~", "danger");
             return;
         }
         let fileCont = ele.previewCont.value;
         if (!checkFileCont(fileCont)) {
-            alert("设置内容不符合要求，请重新检查！")
+            newNotice("设置内容不符合要求，请重新检查！", "danger");
             return;
         }
         localStorage.settings = fileCont;
         closePopup();
+        newNotice("设置导入成功！", "success");
     });
 
     ele.resetBtn.addEventListener("click", function () {

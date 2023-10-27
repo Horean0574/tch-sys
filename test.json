@@ -3,132 +3,132 @@
     "students": [
       {
         "id": 1,
-        "name": "A",
+        "name": "Apple",
         "gender": 1
       },
       {
         "id": 2,
-        "name": "B",
+        "name": "Banana",
         "gender": 1
       },
       {
         "id": 3,
-        "name": "C",
+        "name": "Cat",
         "gender": 1
       },
       {
         "id": 4,
-        "name": "D",
+        "name": "Dog",
         "gender": 1
       },
       {
         "id": 5,
-        "name": "E",
+        "name": "Elephant",
         "gender": 1
       },
       {
         "id": 6,
-        "name": "F",
+        "name": "Fire",
         "gender": 1
       },
       {
         "id": 7,
-        "name": "G",
+        "name": "Gorilla",
         "gender": 1
       },
       {
         "id": 8,
-        "name": "H",
+        "name": "Horean",
         "gender": 1
       },
       {
         "id": 9,
-        "name": "I",
+        "name": "Ice-cream",
         "gender": 1
       },
       {
         "id": 10,
-        "name": "J",
+        "name": "Jelly",
         "gender": 1
       },
       {
         "id": 11,
-        "name": "K",
+        "name": "King",
         "gender": 1
       },
       {
         "id": 12,
-        "name": "L",
+        "name": "Lion",
         "gender": 1
       },
       {
         "id": 13,
-        "name": "M",
+        "name": "Monkey",
         "gender": 1
       },
       {
         "id": 14,
-        "name": "N",
+        "name": "Night",
         "gender": 1
       },
       {
         "id": 15,
-        "name": "O",
+        "name": "Oxygen",
         "gender": 2
       },
       {
         "id": 16,
-        "name": "P",
+        "name": "Park",
         "gender": 2
       },
       {
         "id": 17,
-        "name": "Q",
+        "name": "Queen",
         "gender": 2
       },
       {
         "id": 18,
-        "name": "R",
+        "name": "Rider",
         "gender": 2
       },
       {
         "id": 19,
-        "name": "S",
+        "name": "Swing",
         "gender": 2
       },
       {
         "id": 20,
-        "name": "T",
+        "name": "Typer",
         "gender": 2
       },
       {
         "id": 21,
-        "name": "U",
+        "name": "Unique",
         "gender": 2
       },
       {
         "id": 22,
-        "name": "V",
+        "name": "Van",
         "gender": 2
       },
       {
         "id": 23,
-        "name": "W",
+        "name": "World",
         "gender": 2
       },
       {
         "id": 24,
-        "name": "X",
+        "name": "X-X",
         "gender": 2
       },
       {
         "id": 25,
-        "name": "Y",
+        "name": "Yucca",
         "gender": 2
       },
       {
         "id": 26,
-        "name": "Z",
+        "name": "Zebra",
         "gender": 2
       }
     ]

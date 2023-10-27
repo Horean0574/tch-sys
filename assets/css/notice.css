@@ -3,12 +3,28 @@
     --danger-color: #FE4365;
 }
 
-@keyframes notice-show {
-
+@keyframes notice-flip {
+    0% {
+        transform: translateX(150%);
+    }
+    5% {
+        transform: translateX(0);
+    }
+    95% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(150%);
+    }
 }
 
 @keyframes notice-hide {
-
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(150%);
+    }
 }
 
 .notice {
@@ -16,14 +32,17 @@
     right: 1em;
     bottom: 1em;
     width: auto;
-    height: 1.8em;
+    height: 2.2em;
+    display: inline-block;
     border-style: solid;
     border-width: 1px;
     border-radius: 0.5em;
-    padding: 0.4em;
+    border-color: #FFFFFF99;
+    padding: 0.4em 0.8em;
     box-shadow: 1px 1px 3px darkgray;
     color: white;
     z-index: 150;
+    animation: notice-flip 8s ease-in-out forwards;
 }
 
 .notice-success {
