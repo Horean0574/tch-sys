@@ -1,10 +1,14 @@
 :root {
     --theme-blue: #46b3fa;
     --theme-orange: orange;
-    --fe-pre-color: orange;
-    --fe-aft-color: deepskyblue;
-    --fd-pre-color: darkgray;
-    --fd-aft-color: #9c9c9c;
+    --fe-pre-clr: orange; /* focus-enabled */
+    --fe-aft-clr: deepskyblue;
+    --fd-pre-clr: darkgray; /* focus-disabled */
+    --fd-aft-clr: #9c9c9c;
+    --th-pre-clr: #fda34e; /* title-hover */
+    --th-aft-clr: orange;
+    --neon-clr: #03e9f4;
+    --neon-clr-a: #03e9f466; /* color alpha */
 }
 
 @font-face {
@@ -47,6 +51,51 @@
     }
 }
 
+@keyframes neon1 {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+@keyframes neon2 {
+    0% {
+        top: -100%;
+    }
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+@keyframes neon3 {
+    0% {
+        right: -100%;
+    }
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+@keyframes neon4 {
+    0% {
+        bottom: -100%;
+    }
+    50%, 100% {
+        bottom: 100%;
+    }
+}
+
+@keyframes textJump {
+    0%, 40%, 100% {
+        transform: translateY(0);
+    }
+    20% {
+        transform: translateY(-30px);
+    }
+}
+
 * {
     box-sizing: border-box;
 }
@@ -69,19 +118,19 @@ body {
 }
 
 .general-link:hover {
-    color: var(--fe-pre-color);
+    color: var(--fe-pre-clr);
 }
 
 .general-link:active {
-    color: var(--fe-aft-color);
+    color: var(--fe-aft-clr);
 }
 
 /*.general-link:disabled:hover {*/
-/*    color: var(--fd-pre-color);*/
+/*    color: var(--fd-pre-clr);*/
 /*}*/
 
 /*.general-link:disabled:active {*/
-/*    color: var(--fd-aft-color);*/
+/*    color: var(--fd-aft-clr);*/
 /*}*/
 
 .general-btn {
@@ -96,17 +145,37 @@ body {
 }
 
 .general-btn:enabled:hover {
-    border-color: var(--fe-pre-color);
+    border-color: var(--fe-pre-clr);
 }
 
 .general-btn:enabled:active {
-    border-color: var(--fe-aft-color);
+    border-color: var(--fe-aft-clr);
 }
 
 .general-btn:disabled:hover {
-    border-color: var(--fd-pre-color);
+    border-color: var(--fd-pre-clr);
 }
 
 .general-btn:disabled:active {
-    border-color: var(--fd-aft-color);
+    border-color: var(--fd-aft-clr);
+}
+
+#loading-cover {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background: ghostwhite;
+    text-align: center;
+}
+
+#loading-cover span {
+    margin: 0;
+    display: inline-block;
+    line-height: 100vh;
+    font-size: 8vmin;
+    animation: textJump 2s ease-in-out infinite;
+    animation-delay: calc(80ms * var(--i));
 }
