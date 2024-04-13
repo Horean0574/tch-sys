@@ -8,7 +8,7 @@
     width: 322px; /* 300px + 10px * 2 + 1px * 2 */
     margin: 0 8px 16px;
     padding: 10px;
-    border: solid grey 1px;
+    border: solid gray 1px;
     border-radius: 1em;
     display: inline-block;
     text-align: center;
@@ -17,17 +17,18 @@
 
 .fn-item:hover {
     transform: translateY(-3px);
-    box-shadow: 2px 2px 2px lightgrey;
+    box-shadow: 2px 2px 2px lightgray;
 }
 
 .fn-item-title {
     margin: 0;
-    color: #fda34e;
+    color: var(--th-pre-clr);
+    letter-spacing: 5px;
     transition: color 300ms ease-in-out;
 }
 
 .fn-item:hover .fn-item-title {
-    color: orange;
+    color: var(--th-aft-clr);
 }
 
 .fn-item-desc {

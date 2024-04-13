@@ -40,7 +40,7 @@ function randStuMain() {
     function rand() {
         let rdn = Math.floor(Math.random() * (stuInfo.length - rdpList.length - unrealStu.length) + 1);
         if (ele.rdpBox.checked) {
-            for (let i = 0; i < rdpList.length; i++) {
+            for (let i = 0; i < rdpList.length; ++i) {
                 if (rdn >= rdpList[i]) rdn++;
             }
             let L1 = 0, R1 = rdpList.length;
@@ -377,7 +377,7 @@ function randStuFn() {
 
     let settings = JSON.parse(localStorage["settings"])["rand-stu"];
     stuInfo = settings["students"];
-    for (let i = 0; i < stuInfo.length; i++) {
+    for (let i = 0; i < stuInfo.length; ++i) {
         if (stuInfo[i]["name"] !== null) {
             realStuNums++;
         } else {
