@@ -194,8 +194,10 @@
         });
 
         // End loading
-        let loadingCover = document.querySelector("#loading-cover");
-        loadingCover.style.display = "none";
+        setTimeout(() => {
+            let loadingCover = document.querySelector("#loading-cover");
+            loadingCover.style.display = "none";
+        }, 200);
     });
 </script>
 </body>
