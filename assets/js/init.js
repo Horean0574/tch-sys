@@ -1,9 +1,20 @@
+const PROJECT_NAME = "tch-sys";
+const DEV_MODE_ON = true;
 let fnItems = [];
+let ftItems = [];
 
-function initSettings(fnData) {
+function initFnSettings(fnData) {
     let settings = JSON.parse(localStorage["settings"]);
     if (settings[fnData["id"]] === undefined) {
         settings[fnData["id"]] = fnData["settings"];
+        localStorage["settings"] = JSON.stringify(settings);
+    }
+}
+
+function initFtSettings(ftData) {
+    let settings = JSON.parse(localStorage["settings"]);
+    if (settings[ftData["id"]] === undefined) {
+        settings[ftData["id"]] = ftData["settings"];
         localStorage["settings"] = JSON.stringify(settings);
     }
 }
@@ -30,11 +41,11 @@ function initNav() {
     });
 }
 
-function initElements(fnList, fnListReq) {
+function initFnEle(fnList, fnListReq) {
     let data = JSON.parse(fnListReq.responseText);
     localStorage["fn-data"] = fnListReq.responseText;
-    for (let i = 0; i < data.length; i++) {
-        initSettings(data[i]);
+    for (let i = 0; i < data.length; ++i) {
+        initFnSettings(data[i]);
         let newFnItem = document.createElement("li");
         newFnItem.id = data[i]["id"];
         newFnItem.className = "fn-item";
@@ -61,7 +72,7 @@ function initElements(fnList, fnListReq) {
 function initFunctions() {
     // console.log(fnItems);
     let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
-    for (let i = 0; i < fnItems.length; i++) {
+    for (let i = 0; i < fnItems.length; ++i) {
         let fnItem = fnItems[i];
         let fnItemInfo = fnItem.querySelector(".fn-item-info");
         let fnItemReq = new XMLHttpRequest();
@@ -71,7 +82,7 @@ function initFunctions() {
             fnItemInfo.innerHTML = fnItemReq.responseText;
         });
     }
-    for (let i = 0; i < fnItems.length; i++) {
+    for (let i = 0; i < fnItems.length; ++i) {
         let fnItemEle = fnItems[i];
         let fnItemObj = {};
         fnItemObj.title = fnItemEle.querySelector(".fn-item-title").innerHTML;
@@ -84,6 +95,47 @@ function initFunctions() {
         fnItemObj.btn.addEventListener("click", function () {
             openPopup(fnItemEle, fnItemObj, "fn");
             fnMap[fnItemEle.id]();
+        });
+    }
+}
+
+function initFtEle(ftList, ftListReq) {
+    let data = JSON.parse(ftListReq.responseText);
+    // localStorage["ft-data"] = ftListReq.responseText;
+    for (let i = 0; i < data.length; ++i) {
+        initFtSettings(data[i]);
+        let newFtItem = document.createElement("li");
+        newFtItem.id = data[i]["id"];
+        newFtItem.className = "ft-item";
+        let newFtItemText = document.createElement("h3");
+        newFtItemText.className = "ft-item-text";
+        newFtItemText.innerHTML = data[i]["text"];
+        // neon effect spans
+        for (let i = 0; i < 4; ++i) {
+            let newFtItemSpan = document.createElement("span");
+            newFtItem.appendChild(newFtItemSpan);
+        }
+        newFtItem.appendChild(newFtItemText);
+        ftList.appendChild(newFtItem);
+        ftItems.push(newFtItem);
+    }
+}
+
+function initFeatures() {
+    // console.log(ftItems);
+    for (let i = 0; i < ftItems.length; ++i) {
+        let ftItem = ftItems[i];
+        ftItem.title = ftItem.querySelector(".ft-item-text").innerHTML;
+        ftItem.addEventListener("click", function () {
+            const newUrl = new URL(location.origin);
+            if (DEV_MODE_ON) {
+                newUrl.pathname = `/${PROJECT_NAME}/feature/index.html`;
+            } else {
+                newUrl.pathname = "/feature";
+            }
+            newUrl.searchParams.set("s", ftItem.id);
+            console.log(newUrl.href);
+            location = newUrl;
         });
     }
 }

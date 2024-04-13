@@ -57,28 +57,12 @@
             left: 0;
             bottom: 0;
         }
-
-        #loading-cover {
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999;
-            background: ghostwhite;
-        }
-
-        #loading-text {
-            margin: 0;
-            text-align: center;
-            line-height: 100vh;
-            font-size: 8vmin;
-        }
     </style>
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
     <link rel="stylesheet" href="./assets/css/notice.css">
     <link rel="stylesheet" href="./assets/css/fn-item.css">
+    <link rel="stylesheet" href="./assets/css/ft-item.css">
     <script src="./assets/js/init.js"></script>
     <script src="./assets/js/popup.js"></script>
     <script src="./assets/js/notice.js"></script>
@@ -112,6 +96,24 @@
             </ul>
         </section>
     </div>
+    <div id="feature-area">
+        <section>
+            <h1 class="area-title">特性区</h1>
+        </section>
+        <hr>
+        <section>
+            <ul id="ft-list">
+                <!-- neon effect -->
+                <li id="example-ft" class="ft-item" title="XD">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <h3 class="ft-item-text">Example Feature</h3>
+                </li>
+            </ul>
+        </section>
+    </div>
     <div id="topic-desc">
 
     </div>
@@ -135,7 +137,16 @@
     <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
 </footer>
 <section id="loading-cover">
-    <p id="loading-text">Loading...</p>
+    <span style="--i: 1">L</span>
+    <span style="--i: 2">o</span>
+    <span style="--i: 3">a</span>
+    <span style="--i: 4">d</span>
+    <span style="--i: 5">i</span>
+    <span style="--i: 6">n</span>
+    <span style="--i: 7">g</span>
+    <span style="--i: 8">.</span>
+    <span style="--i: 9">.</span>
+    <span style="--i: 10">.</span>
 </section>
 <script>
     addEventListener("load", function () {
@@ -153,13 +164,14 @@
         }
 
         initNav();
+
         let fnList = document.querySelector("#fn-list");
         let fnListReq = new XMLHttpRequest();
         fnListReq.open("get", "./assets/data/functions.json");
         fnListReq.send(null);
         fnListReq.addEventListener("load", function () {
             new Promise((resolve) => {
-                initElements(fnList, fnListReq);
+                initFnEle(fnList, fnListReq);
                 resolve();
             }).then(() => {
                 initFunctions();
@@ -168,6 +180,20 @@
         initPopup();
         initNotice();
 
+        let ftList = document.querySelector("#ft-list");
+        let ftListReq = new XMLHttpRequest();
+        ftListReq.open("get", "./assets/data/features.json");
+        ftListReq.send(null);
+        ftListReq.addEventListener("load", function () {
+            new Promise((resolve) => {
+                initFtEle(ftList, ftListReq);
+                resolve();
+            }).then(() => {
+                initFeatures();
+            });
+        });
+
+        // End loading
         let loadingCover = document.querySelector("#loading-cover");
         loadingCover.style.display = "none";
     });

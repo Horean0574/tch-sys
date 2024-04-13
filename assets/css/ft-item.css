@@ -1,0 +1,110 @@
+#ft-list {
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.ft-item {
+    position: relative;
+    margin: 0 8px 16px;
+    padding: 1em;
+    border: solid var(--neon-clr-a) 2px;
+    border-radius: 0.3em;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    transition-property: border-color, box-shadow, transform;
+    transition-duration: 300ms, 200ms, 200ms;
+    transition-timing-function: ease-in, ease-in-out, ease-in-out;
+}
+
+.ft-item:nth-child(3n+1) {
+    filter: hue-rotate(110deg);
+}
+
+.ft-item:nth-child(3n+2) {
+    filter: hue-rotate(0);
+}
+
+.ft-item:nth-child(3n+3) {
+    filter: hue-rotate(270deg);
+}
+
+.ft-item:hover {
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 0 5px var(--neon-clr);
+}
+
+.ft-item-text {
+    margin: 0;
+    color: var(--neon-clr);
+    opacity: 0.5;
+    letter-spacing: 2px;
+    transition: color 300ms ease-in-out;
+}
+
+.ft-item:hover .ft-item-text {
+    color: var(--th-aft-clr);
+}
+
+.ft-item span {
+    position: absolute;
+    display: block;
+}
+
+.ft-item span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--neon-clr));
+}
+
+.ft-item:hover span:nth-child(1) {
+    animation: neon1 1s linear infinite;
+}
+
+.ft-item span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--neon-clr));
+}
+
+.ft-item:hover span:nth-child(2) {
+    animation: neon2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+
+.ft-item span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, var(--neon-clr));
+}
+
+.ft-item:hover span:nth-child(3) {
+    animation: neon3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+.ft-item span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, var(--neon-clr));
+}
+
+.ft-item:hover span:nth-child(4) {
+    animation: neon4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+
+#example-ft {
+    display: none;
+}
