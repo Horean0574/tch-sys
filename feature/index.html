@@ -4,13 +4,57 @@
     <meta charset="UTF-8">
     <title>老师快乐系统 - [特性]</title>
     <style>
+        * {
+            user-select: none;
+        }
 
+        #head, #body, #foot {
+            position: relative;
+            text-align: center;
+        }
+
+        #title-container {
+            display: inline-block;
+        }
+
+        #title {
+            color: var(--theme-orange);
+            cursor: pointer;
+            transition: color 300ms ease-in-out;
+        }
+
+        #title:hover {
+            color: darkorange;
+        }
+
+        #body {
+            padding-bottom: 100px;
+        }
+
+        #foot {
+            width: 100%;
+            height: 100px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
     </style>
     <link rel="stylesheet" href="../assets/css/init.css">
     <script src="../assets/js/init.js"></script>
 </head>
 <body>
-<h2>持续开发中...敬请期待</h2>
+<header id="head">
+    <h1 id="title-container">
+        <span id="title" title="特性">特性</span>
+    </h1>
+</header>
+<article id="body">
+
+</article>
+<footer id="foot">
+    <p><a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a></p>
+    <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
+</footer>
 <section id="loading-cover">
     <span style="--i: 1">L</span>
     <span style="--i: 2">o</span>
@@ -25,13 +69,26 @@
 </section>
 <script>
     addEventListener("load", function () {
+        // refresh page if clicking the title
+        let pageTitle = document.querySelector("#title");
+        pageTitle.addEventListener("click", function () {
+            location.reload();
+        });
+
+        // get the newest footer date
+        let thisYear = document.querySelector("#this-year");
+        let date = new Date();
+        thisYear.innerHTML = "-" + date.getFullYear();
+
+        // get and update feature variety
         const ftMap = {"new-rand": "新随机抽人"};
         const url = new URL(location);
         const FEATURE = url.searchParams.get("s");
         document.title += ftMap[FEATURE];
-        alert(FEATURE);
+        pageTitle.innerHTML = ftMap[FEATURE];
+        // alert(FEATURE);
 
-        // End loading
+        // end loading
         setTimeout(() => {
             let loadingCover = document.querySelector("#loading-cover");
             loadingCover.style.display = "none";

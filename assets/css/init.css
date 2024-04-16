@@ -110,6 +110,10 @@ body {
     min-height: 100%;
 }
 
+button, label {
+    cursor: pointer;
+}
+
 .general-link {
     text-decoration: none;
     color: gray;

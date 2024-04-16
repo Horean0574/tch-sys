@@ -8,10 +8,6 @@
             user-select: none;
         }
 
-        button, label {
-            cursor: pointer;
-        }
-
         #head, #body, #foot {
             position: relative;
             text-align: center;
@@ -150,21 +146,26 @@
 </section>
 <script>
     addEventListener("load", function () {
-        let title = document.querySelector("#title");
-        title.addEventListener("click", function () {
+        // refresh page if clicking the title
+        let pageTitle = document.querySelector("#title");
+        pageTitle.addEventListener("click", function () {
             location.reload();
         });
 
+        // get the newest footer date
         let thisYear = document.querySelector("#this-year");
         let date = new Date();
         thisYear.innerHTML = "-" + date.getFullYear();
 
+        // establish localStorage
         if (localStorage["settings"] === undefined) {
             localStorage["settings"] = JSON.stringify({});
         }
 
+        // initialize navigation bar
         initNav();
 
+        // initialize Functions Area
         let fnList = document.querySelector("#fn-list");
         let fnListReq = new XMLHttpRequest();
         fnListReq.open("get", "./assets/data/functions.json");
@@ -177,9 +178,10 @@
                 initFunctions();
             });
         });
-        initPopup();
-        initNotice();
+        initPopup(); // popup
+        initNotice(); // notice
 
+        // initialize Features Area
         let ftList = document.querySelector("#ft-list");
         let ftListReq = new XMLHttpRequest();
         ftListReq.open("get", "./assets/data/features.json");
@@ -193,7 +195,7 @@
             });
         });
 
-        // End loading
+        // end loading
         setTimeout(() => {
             let loadingCover = document.querySelector("#loading-cover");
             loadingCover.style.display = "none";

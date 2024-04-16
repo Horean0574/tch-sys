@@ -1,5 +1,5 @@
 const PROJECT_NAME = "tch-sys";
-const DEV_MODE_ON = false;
+const DEV_MODE_ON = true;
 let fnItems = [];
 let ftItems = [];
 
