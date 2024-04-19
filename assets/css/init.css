@@ -184,7 +184,7 @@ button, label {
     margin: 0;
     display: inline-block;
     line-height: 100vh;
-    font-family: "SounsoQuality", system-ui;
+    font-family: "Sounso Quality", system-ui;
     font-size: 8vmin;
     animation: textJump 2s ease-in-out infinite;
     animation-delay: calc(80ms * var(--i));
