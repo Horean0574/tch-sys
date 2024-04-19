@@ -13,7 +13,12 @@
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: url("../fonts/JetBrainsMono-Regular.woff2");
+    src: url(../fonts/JetBrainsMono-Regular.woff2);
+}
+
+@font-face {
+    font-family: "Sounso Quality";
+    src: url(../fonts/SounsoQuality.ttf);
 }
 
 @keyframes cardFlip {
@@ -179,6 +184,7 @@ button, label {
     margin: 0;
     display: inline-block;
     line-height: 100vh;
+    font-family: "SounsoQuality", system-ui;
     font-size: 8vmin;
     animation: textJump 2s ease-in-out infinite;
     animation-delay: calc(80ms * var(--i));
