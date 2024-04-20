@@ -19,6 +19,11 @@
     transition-timing-function: ease-in, ease-in-out, ease-in-out;
 }
 
+.ft-item-large {
+    width: 250px;
+    height: 200px;
+}
+
 .ft-item:nth-child(3n+1) {
     filter: hue-rotate(110deg);
 }
@@ -47,6 +52,17 @@
 
 .ft-item:hover .ft-item-text {
     color: var(--th-aft-clr);
+}
+
+.ft-item-desc {
+    color: darkgray;
+    text-align: left;
+    text-indent: 2em;
+    transition: color 300ms ease-in-out;
+}
+
+.ft-item:hover .ft-item-desc {
+    color: gray;
 }
 
 .ft-item span {

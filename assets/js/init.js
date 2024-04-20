@@ -19,7 +19,7 @@ function initFtSettings(ftData) {
     }
 }
 
-function initNav() {
+function initHomeNav() {
     let importEle = document.querySelector("#import-btn");
     let importInfo = document.createElement("span");
 
@@ -99,7 +99,7 @@ function initFunctions() {
     }
 }
 
-function initFtEle(ftList, ftListReq) {
+function initFtEle(ftList, ftListReq, itemLarge) {
     let data = JSON.parse(ftListReq.responseText);
     // localStorage["ft-data"] = ftListReq.responseText;
     for (let i = 0; i < data.length; ++i) {
@@ -107,15 +107,24 @@ function initFtEle(ftList, ftListReq) {
         let newFtItem = document.createElement("li");
         newFtItem.id = data[i]["id"];
         newFtItem.className = "ft-item";
+        if (itemLarge) {
+            newFtItem.classList.add("ft-item-large");
+        }
         let newFtItemText = document.createElement("h3");
         newFtItemText.className = "ft-item-text";
         newFtItemText.innerHTML = data[i]["text"];
+        let newFtItemDesc = document.createElement("p");
+        newFtItemDesc.className = "ft-item-desc";
+        newFtItemDesc.innerHTML = data[i]["desc"];
         // neon effect spans
         for (let i = 0; i < 4; ++i) {
             let newFtItemSpan = document.createElement("span");
             newFtItem.appendChild(newFtItemSpan);
         }
         newFtItem.appendChild(newFtItemText);
+        if (itemLarge) {
+            newFtItem.appendChild(newFtItemDesc);
+        }
         ftList.appendChild(newFtItem);
         ftItems.push(newFtItem);
     }
@@ -127,17 +136,32 @@ function initFeatures() {
         let ftItem = ftItems[i];
         ftItem.title = ftItem.querySelector(".ft-item-text").innerHTML;
         ftItem.addEventListener("click", function () {
-            const newUrl = new URL(location.origin);
-            if (DEV_MODE_ON) {
-                newUrl.pathname = `/${PROJECT_NAME}/feature/index.html`;
-            } else {
-                newUrl.pathname = "/feature";
-            }
+            let newUrl = createUrlObj("/feature");
             newUrl.searchParams.set("s", ftItem.id);
             console.log(newUrl.href);
             location = newUrl;
         });
     }
+}
+
+// Only used for creating absolute URL path
+function createUrlObj(pathname) {
+    let newUrl;
+    if (DEV_MODE_ON) {
+        newUrl = new URL(location);
+        newUrl.pathname = "/" + PROJECT_NAME;
+        newUrl.pathname += pathname + "/index.html";
+        let it = newUrl.searchParams.keys();
+        for (let p = it.next(); !p.done; p = it.next()) {
+            if (p.value !== "_ijt" && p.value !== "_ij_reload") {
+                newUrl.searchParams.delete(p.value);
+            }
+        }
+    } else {
+        newUrl = new URL(location.origin);
+        newUrl.pathname = pathname;
+    }
+    return newUrl;
 }
 
 function getNavEleById(parent, navId) {

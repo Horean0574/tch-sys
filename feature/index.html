@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>老师快乐系统 - [特性]</title>
+    <title>老师快乐系统 - 特性</title>
     <style>
         * {
             user-select: none;
@@ -27,6 +27,16 @@
             color: darkorange;
         }
 
+        #navbar-l {
+            position: absolute;
+            top: 2em;
+            left: 2em;
+        }
+
+        #return-paths {
+            font-size: 14px;
+        }
+
         #body {
             padding-bottom: 100px;
         }
@@ -40,16 +50,46 @@
         }
     </style>
     <link rel="stylesheet" href="../assets/css/init.css">
+    <link rel="stylesheet" href="../assets/css/ft-item.css">
     <script src="../assets/js/init.js"></script>
 </head>
 <body>
 <header id="head">
+    <nav id="navbar-l">
+        <button id="return-last" class="general-btn">&lt; 返回</button>
+        <span id="return-paths">
+            <a class="general-link">老师快乐系统</a>
+            <span>&frasl;</span>
+            <a class="general-link">特性</a>
+            <span>&frasl;</span>
+            <a class="general-link"></a>
+        </span>
+    </nav>
     <h1 id="title-container">
         <span id="title" title="特性">特性</span>
     </h1>
 </header>
 <article id="body">
-    <h2>持续开发中，敬请期待...</h2>
+    <div id="ft-area">
+        <ul id="ft-list">
+            <!-- neon effect -->
+            <li id="example-ft" class="ft-item ft-item-large" title="XD">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <h3 class="ft-item-text">Example Feature</h3>
+                <p class="ft-item-desc">
+                    This is an example feature.
+                    Please tell me where you find this!
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <h2 id="jqqd">持续开发中，敬请期待...</h2>
+        <h3 id="incoming" style="color: slategray">更多特性即将来临...</h3>
+    </div>
 </article>
 <footer id="foot">
     <p><a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a></p>
@@ -84,9 +124,50 @@
         const ftMap = {"new-rand": "新随机抽人"};
         const url = new URL(location);
         const FEATURE = url.searchParams.get("s");
-        document.title += ftMap[FEATURE];
-        pageTitle.innerHTML = ftMap[FEATURE];
-        // alert(FEATURE);
+        let returnPaths = document.querySelector("#return-paths");
+        let ReturnPathsA = returnPaths.querySelectorAll("a");
+        let ReturnPathsSpan = returnPaths.querySelectorAll("span");
+        if (FEATURE !== null) {
+            // remove the unnecessary -----------------------------
+            let ftArea = document.querySelector("#ft-area");
+            ftArea.style.display = "none";
+            let incoming = document.querySelector("#incoming");
+            incoming.style.display = "none";
+            // --------------------------------------------
+            document.title = `老师快乐系统 - [特性]${ftMap[FEATURE]}`;
+            pageTitle.innerHTML = ftMap[FEATURE];
+            ReturnPathsA[ReturnPathsA.length - 1].innerHTML = ftMap[FEATURE];
+        } else {
+            // remove the unnecessary -----------------------------
+            let jqqd = document.querySelector("#jqqd");
+            jqqd.style.display = "none";
+            // --------------------------------------------
+            ReturnPathsSpan[1].style.display = "none";
+            ReturnPathsA[2].style.display = "none";
+        }
+
+        // initialize navigation bar
+        let homeUrl = createUrlObj("");
+        let featureUrl = createUrlObj("/feature");
+        let returnLast = document.querySelector("#return-last");
+        returnLast.addEventListener("click", () => location = homeUrl);
+        ReturnPathsA[0].addEventListener("click", () => location = homeUrl);
+        ReturnPathsA[1].addEventListener("click", () => location = featureUrl);
+        ReturnPathsA[2].addEventListener("click", () => location.reload());
+
+        // initialize Feature List
+        let ftList = document.querySelector("#ft-list");
+        let ftListReq = new XMLHttpRequest();
+        ftListReq.open("get", "../assets/data/features.json");
+        ftListReq.send(null);
+        ftListReq.addEventListener("load", function () {
+            new Promise((resolve) => {
+                initFtEle(ftList, ftListReq, true);
+                resolve();
+            }).then(() => {
+                initFeatures();
+            });
+        });
 
         // end loading
         setTimeout(() => {

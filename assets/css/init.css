@@ -134,6 +134,21 @@ button, label {
     color: var(--fe-aft-clr);
 }
 
+.general-svg-link {
+    text-decoration: none;
+    fill: gray;
+    cursor: pointer;
+    transition: fill 150ms ease-in-out;
+}
+
+.general-svg-link:hover {
+    fill: var(--fe-pre-clr);
+}
+
+.general-svg-link:active {
+    fill: var(--fe-aft-clr);
+}
+
 /*.general-link:disabled:hover {*/
 /*    color: var(--fd-pre-clr);*/
 /*}*/
