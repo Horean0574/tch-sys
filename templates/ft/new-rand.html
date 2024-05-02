@@ -26,6 +26,12 @@
         margin-bottom: 0.3em;
     }
 
+    .new-rand[data-ft-id="menu"] li p {
+        margin: 0;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
     .new-rand[data-ft-id="main-container"] {
         position: relative;
         height: 100%;
@@ -44,13 +50,19 @@
     <aside class="new-rand" data-ft-id="menu-container">
         <menu class="new-rand" data-ft-id="menu">
             <li>
-                <button class="shadow-btn active">转盘模式</button>
+                <p>
+                    <button class="shadow-btn active">转盘模式</button>
+                </p>
             </li>
             <li>
-                <button class="shadow-btn">卡牌模式</button>
+                <p>
+                    <button class="shadow-btn">卡牌模式</button>
+                </p>
             </li>
             <li>
-                <button class="shadow-btn">奖池模式</button>
+                <p>
+                    <button class="shadow-btn">奖池模式</button>
+                </p>
             </li>
         </menu>
     </aside>
@@ -58,6 +70,7 @@
         <div class="new-rand" data-ft-id="pattern-area">
             <section class="new-rand" data-ft-id="wheel-mode">
                 <p>转盘模式：持续开发中，敬请期待...</p>
+                <button class="shadow-btn">感谢支持</button>
             </section>
             <section class="new-rand" data-ft-id="card-mode">
                 <p>卡牌模式：持续开发中，敬请期待...</p>

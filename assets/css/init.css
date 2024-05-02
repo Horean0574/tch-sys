@@ -189,7 +189,6 @@ button, label {
 }
 
 .shadow-btn {
-    width: 165px;
     padding: 0.6em 3em;
     background-color: whitesmoke;
     border: transparent solid 2px;
@@ -197,16 +196,15 @@ button, label {
     outline: none;
     font-size: 16px;
     cursor: pointer;
-    transition-property: background-color, box-shadow, opacity, transform, width, padding, color;
-    transition-duration: 300ms, 300ms, 250ms, 300ms, 300ms, 300ms, 150ms;
-    transition-timing-function: ease-in, ease-out, ease-in-out, ease-out, ease-out, ease-out, ease-out;
+    transition-property: background-color, box-shadow, opacity, padding, color;
+    transition-duration: 300ms, 300ms, 250ms, 300ms, 150ms;
+    transition-timing-function: ease-in, ease-out, ease-in-out, ease-out, ease-out;
 }
 
 .shadow-btn:enabled:hover {
-    background-color: floralwhite;
-    box-shadow: 1px 0 4px #333;
+    background-color: #fffaf066;
+    box-shadow: 1px 1px 2px #3333;
     opacity: 0.8;
-    transform: translateY(-2px);
 }
 
 .shadow-btn:enabled:active {
@@ -215,9 +213,7 @@ button, label {
 }
 
 .shadow-btn.active:enabled {
-    width: 70%;
     padding: 0.6em 1.5em;
-    transform: translateX(15%);
     background-color: antiquewhite;
     color: var(--theme-blue);
 }
