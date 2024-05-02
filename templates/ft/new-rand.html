@@ -1,6 +1,71 @@
 <style>
+    .new-rand[data-ft-id="container"] {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
 
+    .new-rand[data-ft-id="menu-container"] {
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 100%;
+        margin-right: 0.5em;
+        display: inline-block;
+        flex-basis: 200px;
+    }
+
+    .new-rand[data-ft-id="menu"] {
+        list-style: none;
+        margin: 6px 0;
+        padding-left: 2em;
+    }
+
+    .new-rand[data-ft-id="menu"] li {
+        margin-bottom: 0.3em;
+    }
+
+    .new-rand[data-ft-id="main-container"] {
+        position: relative;
+        height: 100%;
+        display: inline-block;
+        flex-grow: 1;
+        border-left: gray solid 2px;
+        border-radius: 1em;
+        overflow-y: scroll;
+    }
+
+    .new-rand[data-ft-id="pattern-area"] section {
+        display: none;
+    }
 </style>
-<div>
-    <h2>持续开发中，敬请期待...</h2>
+<div class="new-rand" data-ft-id="container">
+    <aside class="new-rand" data-ft-id="menu-container">
+        <menu class="new-rand" data-ft-id="menu">
+            <li>
+                <button class="shadow-btn active">转盘模式</button>
+            </li>
+            <li>
+                <button class="shadow-btn">卡牌模式</button>
+            </li>
+            <li>
+                <button class="shadow-btn">奖池模式</button>
+            </li>
+        </menu>
+    </aside>
+    <div class="new-rand" data-ft-id="main-container">
+        <div class="new-rand" data-ft-id="pattern-area">
+            <section class="new-rand" data-ft-id="wheel-mode">
+                <p>转盘模式：持续开发中，敬请期待...</p>
+            </section>
+            <section class="new-rand" data-ft-id="card-mode">
+                <p>卡牌模式：持续开发中，敬请期待...</p>
+            </section>
+            <section class="new-rand" data-ft-id="pool-mode">
+                <p>奖池模式：持续开发中，敬请期待...</p>
+            </section>
+        </div>
+        <section class="new-rand" data-ft-id="pattern-cont"></section>
+    </div>
 </div>

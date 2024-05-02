@@ -1,5 +1,5 @@
 const PROJECT_NAME = "tch-sys";
-const DEV_MODE_ON = true;
+const DEV_MODE_ON = false;
 let fnItems = [];
 let ftItems = [];
 
@@ -71,7 +71,7 @@ function initFnEle(fnList, fnListReq) {
 
 function initFunctions() {
     // console.log(fnItems);
-    let fnMap = {"rand-stu": randStuFn, "count-down": countDownFn};
+    const fnFns = {"rand-stu": randStuFn, "count-down": countDownFn};
     for (let item of fnItems) {
         let itemInfo = item.querySelector(".fn-item-info");
         let itemReq = new XMLHttpRequest();
@@ -92,7 +92,7 @@ function initFunctions() {
         itemEle.title = itemTitle;
         itemObj.btn.addEventListener("click", function () {
             openPopup(itemEle, itemObj, "fn");
-            fnMap[itemEle.id]();
+            fnFns[itemEle.id]();
         });
     }
 }
@@ -194,4 +194,8 @@ function getNavEleById(parent, navId) {
 
 function getFnEleById(parent, fnId) {
     return parent.querySelector(`[data-fn-id="${fnId}"]`);
+}
+
+function getFtEleById(parent, ftId) {
+    return parent.querySelector(`[data-ft-id="${ftId}"]`);
 }
