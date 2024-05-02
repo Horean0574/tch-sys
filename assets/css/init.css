@@ -136,16 +136,19 @@ button, label {
 
 .general-svg-link {
     text-decoration: none;
+}
+
+.general-svg-link svg {
     fill: gray;
     cursor: pointer;
     transition: fill 150ms ease-in-out;
 }
 
-.general-svg-link:hover {
+.general-svg-link svg:hover {
     fill: var(--fe-pre-clr);
 }
 
-.general-svg-link:active {
+.general-svg-link svg:active {
     fill: var(--fe-aft-clr);
 }
 

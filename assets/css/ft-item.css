@@ -14,12 +14,12 @@
     overflow: hidden;
     text-align: center;
     cursor: pointer;
-    transition-property: border-color, box-shadow, transform;
-    transition-duration: 300ms, 200ms, 200ms;
-    transition-timing-function: ease-in, ease-in-out, ease-in-out;
+    transition-property: width, height, border-color, box-shadow, transform;
+    transition-duration: 500ms, 500ms, 300ms, 200ms, 200ms;
+    transition-timing-function: ease-out, ease-out, ease-in, ease-in-out, ease-in-out;
 }
 
-.ft-item-large {
+.ft-item.ft-item-large {
     width: 250px;
     height: 200px;
 }
@@ -55,10 +55,13 @@
 }
 
 .ft-item-desc {
+    display: none;
     color: darkgray;
     text-align: left;
     text-indent: 2em;
-    transition: color 300ms ease-in-out;
+    transition-property: color, opacity;
+    transition-duration: 300ms, 300ms;
+    transition-timing-function: ease-in-out, ease-in-out;
 }
 
 .ft-item:hover .ft-item-desc {

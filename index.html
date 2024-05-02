@@ -156,65 +156,68 @@
     <span style="--i: 10">.</span>
 </section>
 <script>
+    // refresh page if clicking the title
+    let pageTitle = document.querySelector("#title");
+    pageTitle.addEventListener("click", function () {
+        location.reload();
+    });
+
+    // get the newest footer date
+    let thisYear = document.querySelector("#this-year");
+    let date = new Date();
+    thisYear.innerHTML = "-" + date.getFullYear();
+
+    // establish localStorage
+    if (localStorage["settings"] === undefined) {
+        localStorage["settings"] = JSON.stringify({});
+    }
+
+    // initialize navigation bar
+    initHomeNav();
+
+    // initialize Functions Area
+    let fnList = document.querySelector("#fn-list");
+    let fnListReq = new XMLHttpRequest();
+    fnListReq.open("get", "./assets/data/functions.json");
+    fnListReq.send(null);
+    fnListReq.addEventListener("load", function () {
+        new Promise((resolve) => {
+            initFnEle(fnList, fnListReq);
+            resolve();
+        }).then(() => {
+            initFunctions();
+        });
+    });
+    initPopup(); // popup
+    initNotice(); // notice
+
+    // initialize Features Area
+    let ftLinkIcon = document.querySelector("#ft-link-icon");
+    ftLinkIcon.addEventListener("click", function () {
+        location = createUrlObj("/feature");
+    });
+    let ftList = document.querySelector("#ft-list");
+    let ftListReq = new XMLHttpRequest();
+    ftListReq.open("get", "./assets/data/features.json");
+    ftListReq.send(null);
+    ftListReq.addEventListener("load", function () {
+        new Promise((resolve) => {
+            initFtEle(ftList, ftListReq, false);
+            // change size value into real numbers for transitions
+            for (let item of ftItems) {
+                item.style.width = item.offsetWidth + "px";
+                item.style.height = item.offsetHeight + "px";
+            }
+            resolve();
+        }).then(() => {
+            initFeatures();
+        });
+    });
+
+    // end loading
     addEventListener("load", function () {
-        // refresh page if clicking the title
-        let pageTitle = document.querySelector("#title");
-        pageTitle.addEventListener("click", function () {
-            location.reload();
-        });
-
-        // get the newest footer date
-        let thisYear = document.querySelector("#this-year");
-        let date = new Date();
-        thisYear.innerHTML = "-" + date.getFullYear();
-
-        // establish localStorage
-        if (localStorage["settings"] === undefined) {
-            localStorage["settings"] = JSON.stringify({});
-        }
-
-        // initialize navigation bar
-        initHomeNav();
-
-        // initialize Functions Area
-        let fnList = document.querySelector("#fn-list");
-        let fnListReq = new XMLHttpRequest();
-        fnListReq.open("get", "./assets/data/functions.json");
-        fnListReq.send(null);
-        fnListReq.addEventListener("load", function () {
-            new Promise((resolve) => {
-                initFnEle(fnList, fnListReq);
-                resolve();
-            }).then(() => {
-                initFunctions();
-            });
-        });
-        initPopup(); // popup
-        initNotice(); // notice
-
-        // initialize Features Area
-        let ftLinkIcon = document.querySelector("#ft-link-icon");
-        ftLinkIcon.addEventListener("click", function () {
-            location = createUrlObj("/feature");
-        });
-        let ftList = document.querySelector("#ft-list");
-        let ftListReq = new XMLHttpRequest();
-        ftListReq.open("get", "./assets/data/features.json");
-        ftListReq.send(null);
-        ftListReq.addEventListener("load", function () {
-            new Promise((resolve) => {
-                initFtEle(ftList, ftListReq, false);
-                resolve();
-            }).then(() => {
-                initFeatures();
-            });
-        });
-
-        // end loading
-        setTimeout(() => {
-            let loadingCover = document.querySelector("#loading-cover");
-            loadingCover.style.display = "none";
-        }, 200);
+        let loadingCover = document.querySelector("#loading-cover");
+        loadingCover.style.display = "none";
     });
 </script>
 </body>

@@ -87,7 +87,7 @@
         </ul>
     </div>
     <div>
-        <h2 id="jqqd">持续开发中，敬请期待...</h2>
+        <section id="ft-cont"></section>
         <h3 id="incoming" style="color: slategray">更多特性即将来临...</h3>
     </div>
 </article>
@@ -108,72 +108,75 @@
     <span style="--i: 10">.</span>
 </section>
 <script>
+    // refresh page if clicking the title
+    let pageTitle = document.querySelector("#title");
+    pageTitle.addEventListener("click", function () {
+        location.reload();
+    });
+
+    // get the newest footer date
+    let thisYear = document.querySelector("#this-year");
+    let date = new Date();
+    thisYear.innerHTML = "-" + date.getFullYear();
+
+    // get and update feature variety
+    const ftMap = {"new-rand": "新随机抽人"};
+    const url = new URL(location);
+    const FEATURE = url.searchParams.get("s");
+    let returnPaths = document.querySelector("#return-paths");
+    let ReturnPathsA = returnPaths.querySelectorAll("a");
+    let ReturnPathsSpan = returnPaths.querySelectorAll("span");
+    let ftCont = document.querySelector("#ft-cont");
+    if (FEATURE !== null) {
+        // remove the unnecessary
+        let ftArea = document.querySelector("#ft-area");
+        ftArea.style.display = "none";
+        let incoming = document.querySelector("#incoming");
+        incoming.style.display = "none";
+        // update related value
+        document.title = `老师快乐系统 - [特性]${ftMap[FEATURE]}`;
+        pageTitle.innerHTML = ftMap[FEATURE];
+        ReturnPathsA[ReturnPathsA.length - 1].innerHTML = ftMap[FEATURE];
+        // read current feature content
+        let ftContReq = new XMLHttpRequest();
+        ftContReq.open("get", `../templates/ft/${FEATURE}.html`);
+        ftContReq.send(null);
+        ftContReq.addEventListener("load", function () {
+            ftCont.innerHTML = ftContReq.responseText;
+        });
+    } else {
+        ftCont.style.display = "none";
+        ReturnPathsSpan[1].style.display = "none";
+        ReturnPathsA[2].style.display = "none";
+    }
+
+    // initialize navigation bar
+    let homeUrl = createUrlObj("");
+    let featureUrl = createUrlObj("/feature");
+    let returnLast = document.querySelector("#return-last");
+    returnLast.addEventListener("click", () => location = homeUrl);
+    ReturnPathsA[0].addEventListener("click", () => location = homeUrl);
+    ReturnPathsA[1].addEventListener("click", () => location = featureUrl);
+    ReturnPathsA[2].addEventListener("click", () => location.reload());
+
+    // initialize Feature List
+    let ftList = document.querySelector("#ft-list");
+    let ftListReq = new XMLHttpRequest();
+    ftListReq.open("get", "../assets/data/features.json");
+    ftListReq.send(null);
+    ftListReq.addEventListener("load", function () {
+        new Promise((resolve) => {
+            initFtEle(ftList, ftListReq, true);
+            resolve();
+        }).then(() => {
+            initFeatures();
+        });
+    });
+
+    // end loading
     addEventListener("load", function () {
-        // refresh page if clicking the title
-        let pageTitle = document.querySelector("#title");
-        pageTitle.addEventListener("click", function () {
-            location.reload();
-        });
-
-        // get the newest footer date
-        let thisYear = document.querySelector("#this-year");
-        let date = new Date();
-        thisYear.innerHTML = "-" + date.getFullYear();
-
-        // get and update feature variety
-        const ftMap = {"new-rand": "新随机抽人"};
-        const url = new URL(location);
-        const FEATURE = url.searchParams.get("s");
-        let returnPaths = document.querySelector("#return-paths");
-        let ReturnPathsA = returnPaths.querySelectorAll("a");
-        let ReturnPathsSpan = returnPaths.querySelectorAll("span");
-        if (FEATURE !== null) {
-            // remove the unnecessary -----------------------------
-            let ftArea = document.querySelector("#ft-area");
-            ftArea.style.display = "none";
-            let incoming = document.querySelector("#incoming");
-            incoming.style.display = "none";
-            // --------------------------------------------
-            document.title = `老师快乐系统 - [特性]${ftMap[FEATURE]}`;
-            pageTitle.innerHTML = ftMap[FEATURE];
-            ReturnPathsA[ReturnPathsA.length - 1].innerHTML = ftMap[FEATURE];
-        } else {
-            // remove the unnecessary -----------------------------
-            let jqqd = document.querySelector("#jqqd");
-            jqqd.style.display = "none";
-            // --------------------------------------------
-            ReturnPathsSpan[1].style.display = "none";
-            ReturnPathsA[2].style.display = "none";
-        }
-
-        // initialize navigation bar
-        let homeUrl = createUrlObj("");
-        let featureUrl = createUrlObj("/feature");
-        let returnLast = document.querySelector("#return-last");
-        returnLast.addEventListener("click", () => location = homeUrl);
-        ReturnPathsA[0].addEventListener("click", () => location = homeUrl);
-        ReturnPathsA[1].addEventListener("click", () => location = featureUrl);
-        ReturnPathsA[2].addEventListener("click", () => location.reload());
-
-        // initialize Feature List
-        let ftList = document.querySelector("#ft-list");
-        let ftListReq = new XMLHttpRequest();
-        ftListReq.open("get", "../assets/data/features.json");
-        ftListReq.send(null);
-        ftListReq.addEventListener("load", function () {
-            new Promise((resolve) => {
-                initFtEle(ftList, ftListReq, true);
-                resolve();
-            }).then(() => {
-                initFeatures();
-            });
-        });
-
-        // end loading
-        setTimeout(() => {
-            let loadingCover = document.querySelector("#loading-cover");
-            loadingCover.style.display = "none";
-        }, 200);
+        let loadingCover = document.querySelector("#loading-cover");
+        loadingCover.style.display = "none";
     });
 </script>
 </body>

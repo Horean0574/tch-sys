@@ -120,7 +120,7 @@ function randStuMain() {
                 ele.optPage.style.display = "none";
                 ele.stuShow.style.display = "block";
                 checkShowState();
-                setTimeout(function () {
+                setTimeout(() => {
                     ele.info.style.animation = "";
                 }, 300);
             }, 300);
