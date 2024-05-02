@@ -198,7 +198,7 @@ function randStuMain() {
         });
     }
 
-    // Get elements from HTML
+    // get elements from HTML template
     let ele = {};
     ele.info = document.querySelector(".rand-stu-info");
     ele.optPage = getFnEleById(ele.info, "opt-page");
@@ -236,7 +236,7 @@ function randStuMain() {
     let eleRes = new extRes();
     let curResKey = "";
 
-    // Setting states
+    // set states
     let states = {
         randed: {code: 0, len: 0},
         showing: {idx: 0},
@@ -246,9 +246,9 @@ function randStuMain() {
     ele.stuUl.removeChild(ele.findNoneText);
     ele.findNoneText.style.display = "list-item";
 
-    // Adding event listener
+    // add Event Listeners
     ele.stuNum.addEventListener("keypress", function (e) {
-        if (isNaN(String.fromCharCode(e.which))) {
+        if (isNaN(parseInt(String.fromCharCode(e.which)))) {
             e.preventDefault();
         }
     });
