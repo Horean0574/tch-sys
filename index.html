@@ -59,6 +59,17 @@
             left: 0;
             bottom: 0;
         }
+
+        #footer-menu {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        #footer-menu li {
+            margin: 0 0.6em;
+        }
     </style>
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
@@ -141,7 +152,14 @@
     <div id="notice-area"></div>
 </aside>
 <footer id="foot">
-    <p><a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a></p>
+    <menu id="footer-menu">
+        <li>
+            <a class="general-link" href="https://github.com/Horean0574/tch-sys/" target="_blank">开源项目</a>
+        </li>
+        <li>
+            <a class="general-link" href="https://afdian.net/a/Horean0574" target="_blank">支持一下</a>
+        </li>
+    </menu>
     <p id="copyright">&copy; 2022<span id="this-year"></span> Horean</p>
 </footer>
 <section id="loading-cover">
