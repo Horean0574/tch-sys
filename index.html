@@ -71,6 +71,8 @@
             margin: 0 0.6em;
         }
     </style>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="preload" href="./assets/fonts/SounsoQuality.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/init.css">
     <link rel="stylesheet" href="./assets/css/popup.css">
     <link rel="stylesheet" href="./assets/css/notice.css">
@@ -235,8 +237,10 @@
 
     // end loading
     addEventListener("load", function () {
-        let loadingCover = document.querySelector("#loading-cover");
-        loadingCover.style.display = "none";
+        setTimeout(() => {
+            let loadingCover = document.querySelector("#loading-cover");
+            loadingCover.style.display = "none";
+        }, 50);
     });
 </script>
 </body>
