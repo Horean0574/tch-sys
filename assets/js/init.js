@@ -1,5 +1,5 @@
 const PROJECT_NAME = "tch-sys";
-const DEV_MODE_ON = false;
+const DEV_MODE_ON = true;
 let fnItems = [];
 let ftItems = [];
 
@@ -198,4 +198,8 @@ function getFnEleById(parent, fnId) {
 
 function getFtEleById(parent, ftId) {
     return parent.querySelector(`[data-ft-id="${ftId}"]`);
+}
+
+function getFtEleByCls(parent, ftCls) {
+    return parent.querySelectorAll(`[data-ft-cls="${ftCls}"]`);
 }

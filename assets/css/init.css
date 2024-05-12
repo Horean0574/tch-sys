@@ -1,6 +1,8 @@
 :root {
     --theme-blue: #46b3fa;
     --theme-orange: orange;
+    --theme-orange2: #fda34e;
+    --theme-red: #fe4365;
     --fe-pre-clr: orange; /* focus-enabled */
     --fe-aft-clr: deepskyblue;
     --fd-pre-clr: darkgray; /* focus-disabled */
