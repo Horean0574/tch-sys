@@ -26,25 +26,40 @@ function newRandMain() {
         ele.textItems = ele.prizeText.querySelectorAll("p");
 
         // add Event Listener
-        let rotateDeg = 0, isRotating = false;
+        let rotateDeg = 0, isRotating = false, lastPrize = 0;
         let rotateRes = 0, rotateResI = 0, rotateResF = 0; // result (integer & fractional forms)
         ele.turnSpinner.addEventListener("click", function () {
             if (isRotating) return;
             isRotating = true;
+
+            if (lastPrize) {
+                ele.zoneItems[lastPrize].style.background = "";
+                ele.zoneItems[lastPrize].style.borderColor = "var(--theme-red)";
+                ele.zoneItems[lastPrize - 1 || N].style.borderRightColor = "var(--theme-red)";
+                ele.zoneItems[lastPrize % N + 1].style.borderBottomColor = "var(--theme-red)";
+                ele.textItems[lastPrize].style.color = "";
+                ele.textItems[lastPrize].style.fontWeight = "";
+                ele.textItems[lastPrize].style.fontSize = "";
+            }
+
             rotateDeg += 360 * (8.1 + Math.random());
             rotateRes = N - (rotateDeg - skewVal) % 360 / eAng; // anticlockwise (fraction)
             rotateResI = Math.ceil(rotateRes);
             rotateResF = rotateRes % 1;
+            lastPrize = rotateResI;
             console.log(rotateResI, rotateResF);
             ele.wheel.style.transform = `rotate(${rotateDeg}deg)`;
             ele.turnSpinner.style.cursor = "not-allowed";
             setTimeout(() => {
                 isRotating = false;
                 ele.turnSpinner.style.cursor = "pointer";
+                ele.zoneItems[rotateResI].style.background = "var(--res-yellow2)";
                 ele.zoneItems[rotateResI].style.borderColor = "var(--res-yellow)";
-                // ele.zoneItems[rotateResI % N - 1].style.borderRightColor = "var(--res-yellow)";
-                // ele.zoneItems[rotateResI % N + 1].style.borderBottomColor = "var(--res-yellow)";
-                ele.textItems[rotateResI].style.color = "var(--res-yellow)";
+                ele.zoneItems[rotateResI - 1 || N].style.borderRightColor = "var(--res-yellow)";
+                ele.zoneItems[rotateResI % N + 1].style.borderBottomColor = "var(--res-yellow)";
+                ele.textItems[rotateResI].style.color = "var(--res-red)";
+                ele.textItems[rotateResI].style.fontWeight = "bold";
+                ele.textItems[rotateResI].style.fontSize = "1.2em";
             }, 6000);
         });
     }
