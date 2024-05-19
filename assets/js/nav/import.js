@@ -11,18 +11,23 @@ function importMain() {
     }
 
     function checkFileCont(fileCont) {
-        let settings = JSON.parse(fileCont);
-        let fnData = JSON.parse(localStorage["fn-data"]);
-        for (let data of fnData) {
-            console.log(data);
-            if (settings[data["id"]] === undefined) {
-                return false;
-            }
-            for (let key in data["settings"]) {
-                if (settings[data["id"]][key] === undefined) {
+        function checkEssentialKeys(keys, toCheck) {
+            for (let k in keys) {
+                if (toCheck[k] === undefined) {
                     return false;
                 }
+                if (keys[k] !== {} && keys[k] !== []) {
+                    checkEssentialKeys(keys[k], toCheck[k]);
+                }
             }
+            return true;
+        }
+
+        let newSettings = JSON.parse(fileCont);
+        let fnKeys = JSON.parse(localStorage["settings-keys"])[0];
+        for (let key in fnKeys) {
+            if (newSettings[0][key] === undefined) return false;
+            if (!checkEssentialKeys(fnKeys[key], newSettings[0][key])) return false;
         }
         return true;
     }
@@ -58,6 +63,7 @@ function importMain() {
 
     ele.uploadBtnOrg.addEventListener("input", function () {
         if (!this.files[0].name.endsWith(".json")) {
+            console.error("Invalid file format, expected JSON.");
             newNotice("请上传 JSON 格式文件！", "danger");
             return;
         }
@@ -77,10 +83,12 @@ function importMain() {
         }
         let fileCont = ele.previewCont.value;
         if (!checkFileCont(fileCont)) {
+            console.error("Invalid content!");
             newNotice("设置内容不符合要求，请重新检查！", "danger");
             return;
         }
-        localStorage.settings = fileCont;
+        localStorage["settings"] = analyzeMain(fileCont);
+        console.log("Settings imported successfully.");
         closePopup();
         newNotice("设置导入成功！", "success");
     });

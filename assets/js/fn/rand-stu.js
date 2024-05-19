@@ -1,6 +1,6 @@
 let stuInfo = [];
 let realStuNums = 0;
-let unrealStu = [];
+let virtualStu = [];
 
 class extRes {
     constructor() {
@@ -38,7 +38,7 @@ function randStuMain() {
     }
 
     function rand() {
-        let rdn = Math.floor(Math.random() * (stuInfo.length - rdpList.length - unrealStu.length) + 1);
+        let rdn = Math.floor(Math.random() * (stuInfo.length - rdpList.length - virtualStu.length) + 1);
         if (ele.rdpBox.checked) {
             for (let i = 0; i < rdpList.length; ++i) {
                 if (rdn >= rdpList[i]) rdn++;
@@ -51,10 +51,10 @@ function randStuMain() {
             }
             if (rdpList.indexOf(rdn) === -1) rdpList.splice(L1, 0, rdn);
         }
-        let L2 = 0, R2 = unrealStu.length;
+        let L2 = 0, R2 = virtualStu.length;
         while (L2 < R2) {
             let M2 = Math.floor((L2 + R2) / 2);
-            if (rdn < unrealStu[M2]) R2 = M2;
+            if (rdn < virtualStu[M2]) R2 = M2;
             else L2 = M2 + 1;
         }
         rdn += L2;
@@ -284,7 +284,7 @@ function randStuMain() {
         }
 
         for (let i = 1; i <= stuInfo.length; ++i) {
-            if (unrealStu.includes(i) || numRes.rd.includes(i)) continue;
+            if (virtualStu.includes(i) || numRes.rd.includes(i)) continue;
             numRes.rv.push(i);
             let stu = createResItem(i, "rv");
             eleRes.rv.push(stu);
@@ -369,19 +369,17 @@ function randStuMain() {
 }
 
 function randStuFn() {
-    ~function () {
-        stuInfo = [];
-        realStuNums = 0;
-        unrealStu = [];
-    }();
+    stuInfo = [];
+    realStuNums = 0;
+    virtualStu = [];
 
-    let settings = JSON.parse(localStorage["settings"])["rand-stu"];
-    stuInfo = settings["students"];
-    for (let i = 0; i < stuInfo.length; ++i) {
-        if (stuInfo[i]["name"] !== null) {
-            realStuNums++;
+    let iSettings = JSON.parse(localStorage["settings"])[0]["rand-stu"];
+    stuInfo = iSettings["students"];
+    for (let stu of stuInfo) {
+        if (stu["name"] !== null) {
+            ++realStuNums;
         } else {
-            unrealStu.push(stuInfo[i]["id"]);
+            virtualStu.push(stu["id"]);
         }
     }
     randStuMain();

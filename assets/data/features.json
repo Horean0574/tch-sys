@@ -3,6 +3,9 @@
     "id": "new-rand",
     "text": "新随机抽人",
     "desc": "一款新式的随机抽人，不同于旧版，会有更多的特效，这将会给师生们带来更多的乐趣与刺激！",
+    "settings-keys": {
+      "students": {}
+    },
     "settings": {
       "students": [
         {

@@ -3,12 +3,40 @@ const DEV_MODE_ON = true;
 let fnItems = [];
 let ftItems = [];
 
-function initFnSettings(fnData) {
-    let settings = JSON.parse(localStorage["settings"]);
-    if (settings[fnData["id"]] === undefined) {
-        settings[fnData["id"]] = fnData["settings"];
-        localStorage["settings"] = JSON.stringify(settings);
+function initStorage() {
+    // check structure
+    function checkStruct(std_, toCheck) {
+        for (let k in std_) {
+            if (toCheck[k] === undefined || Object.getPrototypeOf(toCheck[k]) !== Object.getPrototypeOf(std_[k])) {
+                structState = 0;
+                return false;
+            }
+            if (std_[k] !== {} && std_[k] !== []) {
+                checkStruct(std_[k], toCheck[k]);
+            }
+        }
+        structState = 1;
+        return true;
     }
+
+    console.log("Connecting to local storage...");
+    let directStorages = {"settings": [{}, {}], "settings-keys": [{}, {}]};
+    let structState = -1;
+    for (let s in directStorages) {
+        structState = -1;
+        try {
+            localStorage[s] !== undefined && JSON.parse(localStorage[s]);
+        } catch {
+            structState = 0;
+        } finally {
+            if (localStorage[s] === undefined || !structState || !checkStruct(directStorages[s], JSON.parse(localStorage[s]))) {
+                localStorage[s] = JSON.stringify(directStorages[s]);
+                console.log(`Storage [${s}] ${!structState ? "revised" : "created"}.`);
+            }
+        }
+    }
+    console.log("Connected successfully.");
+    console.warn("Don't paste or execute anything in here. You may not know what it does if you are not the developer.");
 }
 
 function initFtSettings(ftData) {
@@ -41,11 +69,21 @@ function initHomeNav() {
     });
 }
 
+// initialize Function elements
 function initFnEle(fnList, fnListReq) {
     let data = JSON.parse(fnListReq.responseText);
-    localStorage["fn-data"] = fnListReq.responseText;
+    let settings = JSON.parse(localStorage["settings"]);
+    let settingsKeys = JSON.parse(localStorage["settings-keys"]);
     for (let d of data) {
-        initFnSettings(d);
+        // initialize settings (including settings-keys)
+        if (settings[0][d["id"]] === undefined) {
+            settings[0][d["id"]] = d["settings"];
+        }
+        if (settingsKeys[0][d["id"]] === undefined) {
+            settingsKeys[0][d["id"]] = d["settings-keys"];
+        }
+
+        // new elements
         let newFnItem = document.createElement("li");
         newFnItem.id = d["id"];
         newFnItem.className = "fn-item";
@@ -67,6 +105,9 @@ function initFnEle(fnList, fnListReq) {
         fnList.appendChild(newFnItem);
         fnItems.push(newFnItem);
     }
+    // save settings
+    localStorage["settings"] = JSON.stringify(settings);
+    localStorage["settings-keys"] = JSON.stringify(settingsKeys);
 }
 
 function initFunctions() {
@@ -99,8 +140,17 @@ function initFunctions() {
 
 function initFtEle(ftList, ftListReq, itemLarge) {
     let data = JSON.parse(ftListReq.responseText);
-    // localStorage["ft-data"] = ftListReq.responseText;
+    let settings = JSON.parse(localStorage["settings"]);
+    let settingsKeys = JSON.parse(localStorage["settings-keys"]);
     for (let d of data) {
+        // initialize settings (including settings-keys)
+        if (settings[1][d["id"]] === undefined) {
+            settings[1][d["id"]] = d["settings"];
+        }
+        if (settingsKeys[1][d["id"]] === undefined) {
+            settingsKeys[1][d["id"]] = d["settings-keys"];
+        }
+
         initFtSettings(d);
         let newFtItem = document.createElement("li");
         newFtItem.id = d["id"];
@@ -123,6 +173,9 @@ function initFtEle(ftList, ftListReq, itemLarge) {
         ftList.appendChild(newFtItem);
         ftItems.push(newFtItem);
     }
+    // save settings
+    localStorage["settings"] = JSON.stringify(settings);
+    localStorage["settings-keys"] = JSON.stringify(settingsKeys);
 }
 
 function initFeatures() {
@@ -133,7 +186,6 @@ function initFeatures() {
         ftItem.addEventListener("click", function () {
             let newUrl = createUrlObj("/feature");
             newUrl.searchParams.set("s", ftItem.id);
-            console.log(newUrl.href);
             location = newUrl;
         });
         let timeoutId;

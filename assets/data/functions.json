@@ -3,6 +3,9 @@
     "id": "rand-stu",
     "title": "随机抽人",
     "desc": "帮助老师快速抽取学生回答问题的神器。",
+    "settings-keys": {
+      "students": {}
+    },
     "settings": {
       "students": [
         {
@@ -97,6 +100,7 @@
     "id": "count-down",
     "title": "计时器",
     "desc": "帮助老师规定学生在指定时间内完成任务&amp;测算学生完成任务的时间的神器。",
+    "settings-keys": {},
     "settings": {}
   }
 ]

@@ -1,6 +1,10 @@
+let stuInfo = [];
+let realStuNums = 0;
+let virtualStu = [];
+
 function newRandMain() {
     function MInitWheel() {
-        const N = 5, eAng = 360 / N; // angle of each divided part
+        const N = 7, eAng = 360 / N; // angle of each divided part
         const skewVal = 90 - eAng;
 
         ele.turntable = getFtEleByCls(ele.patternCont, "turntable")[0];
@@ -31,19 +35,15 @@ function newRandMain() {
         ele.turnSpinner.addEventListener("click", function () {
             if (isRotating) return;
             isRotating = true;
-
             if (lastPrize) {
-                ele.zoneItems[lastPrize].style.background = "";
-                ele.zoneItems[lastPrize].style.borderColor = "var(--theme-red)";
-                ele.zoneItems[lastPrize - 1 || N].style.borderRightColor = "var(--theme-red)";
-                ele.zoneItems[lastPrize % N + 1].style.borderBottomColor = "var(--theme-red)";
-                ele.textItems[lastPrize].style.color = "";
-                ele.textItems[lastPrize].style.fontWeight = "";
-                ele.textItems[lastPrize].style.fontSize = "";
+                ele.zoneItems[rotateResI].classList.remove("pointed");
+                ele.zoneItems[rotateResI - 1 || N].classList.remove("pointedL");
+                ele.zoneItems[rotateResI % N + 1].classList.remove("pointedR");
+                ele.textItems[rotateResI].classList.remove("pointed");
             }
 
             rotateDeg += 360 * (8.1 + Math.random());
-            rotateRes = N - (rotateDeg - skewVal) % 360 / eAng; // anticlockwise (fraction)
+            rotateRes = N - (rotateDeg - skewVal) % 360 / eAng; // clockwise (fraction)
             rotateResI = Math.ceil(rotateRes);
             rotateResF = rotateRes % 1;
             lastPrize = rotateResI;
@@ -53,13 +53,10 @@ function newRandMain() {
             setTimeout(() => {
                 isRotating = false;
                 ele.turnSpinner.style.cursor = "pointer";
-                ele.zoneItems[rotateResI].style.background = "var(--res-yellow2)";
-                ele.zoneItems[rotateResI].style.borderColor = "var(--res-yellow)";
-                ele.zoneItems[rotateResI - 1 || N].style.borderRightColor = "var(--res-yellow)";
-                ele.zoneItems[rotateResI % N + 1].style.borderBottomColor = "var(--res-yellow)";
-                ele.textItems[rotateResI].style.color = "var(--res-red)";
-                ele.textItems[rotateResI].style.fontWeight = "bold";
-                ele.textItems[rotateResI].style.fontSize = "1.2em";
+                ele.zoneItems[rotateResI].classList.add("pointed");
+                ele.zoneItems[rotateResI - 1 || N].classList.add("pointedL");
+                ele.zoneItems[rotateResI % N + 1].classList.add("pointedR");
+                ele.textItems[rotateResI].classList.add("pointed");
             }, 6000);
         });
     }
@@ -106,10 +103,15 @@ function newRandMain() {
 }
 
 function newRandFt() {
-    ~function () {
 
-    }();
-
-
+    let iSettings = JSON.parse(localStorage["settings"])[1]["new-rand"];
+    stuInfo = iSettings["students"];
+    for (let stu of stuInfo) {
+        if (stu["name"] !== null) {
+            ++realStuNums;
+        } else {
+            virtualStu.push(stu["id"]);
+        }
+    }
     newRandMain();
 }

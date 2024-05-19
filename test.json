@@ -1,137 +1,144 @@
-{
-  "rand-stu": {
-    "students": [
-      {
-        "id": 1,
-        "name": "Apple",
-        "gender": 1
-      },
-      {
-        "id": 2,
-        "name": "Banana",
-        "gender": 1
-      },
-      {
-        "id": 3,
-        "name": "Cat",
-        "gender": 1
-      },
-      {
-        "id": 4,
-        "name": "Dog",
-        "gender": 1
-      },
-      {
-        "id": 5,
-        "name": "Elephant",
-        "gender": 1
-      },
-      {
-        "id": 6,
-        "name": "Fire",
-        "gender": 1
-      },
-      {
-        "id": 7,
-        "name": "Gorilla",
-        "gender": 1
-      },
-      {
-        "id": 8,
-        "name": "Horean",
-        "gender": 1
-      },
-      {
-        "id": 9,
-        "name": "Ice-cream",
-        "gender": 1
-      },
-      {
-        "id": 10,
-        "name": "Jelly",
-        "gender": 1
-      },
-      {
-        "id": 11,
-        "name": "King",
-        "gender": 1
-      },
-      {
-        "id": 12,
-        "name": "Lion",
-        "gender": 1
-      },
-      {
-        "id": 13,
-        "name": "Monkey",
-        "gender": 1
-      },
-      {
-        "id": 14,
-        "name": "Night",
-        "gender": 1
-      },
-      {
-        "id": 15,
-        "name": "Oxygen",
-        "gender": 2
-      },
-      {
-        "id": 16,
-        "name": "Park",
-        "gender": 2
-      },
-      {
-        "id": 17,
-        "name": "Queen",
-        "gender": 2
-      },
-      {
-        "id": 18,
-        "name": "Rider",
-        "gender": 2
-      },
-      {
-        "id": 19,
-        "name": "Swing",
-        "gender": 2
-      },
-      {
-        "id": 20,
-        "name": "Typer",
-        "gender": 2
-      },
-      {
-        "id": 21,
-        "name": "Unique",
-        "gender": 2
-      },
-      {
-        "id": 22,
-        "name": "Van",
-        "gender": 2
-      },
-      {
-        "id": 23,
-        "name": "World",
-        "gender": 2
-      },
-      {
-        "id": 24,
-        "name": "X-X",
-        "gender": 2
-      },
-      {
-        "id": 25,
-        "name": "Yucca",
-        "gender": 2
-      },
-      {
-        "id": 26,
-        "name": "Zebra",
-        "gender": 2
-      }
-    ]
+[
+  {
+    "rand-stu": {
+      "students": [
+        {
+          "id": 1,
+          "name": "Apple",
+          "gender": 1
+        },
+        {
+          "id": 2,
+          "name": "Banana",
+          "gender": 1
+        },
+        {
+          "id": 3,
+          "name": "Cat",
+          "gender": 1
+        },
+        {
+          "id": 4,
+          "name": "Dog",
+          "gender": 1
+        },
+        {
+          "id": 5,
+          "name": "Elephant",
+          "gender": 1
+        },
+        {
+          "id": 6,
+          "name": "Fire",
+          "gender": 1
+        },
+        {
+          "id": 7,
+          "name": "Gorilla",
+          "gender": 1
+        },
+        {
+          "id": 8,
+          "name": "Horean",
+          "gender": 1
+        },
+        {
+          "id": 9,
+          "name": "Ice-cream",
+          "gender": 1
+        },
+        {
+          "id": 10,
+          "name": "Jelly",
+          "gender": 1
+        },
+        {
+          "id": 11,
+          "name": "King",
+          "gender": 1
+        },
+        {
+          "id": 12,
+          "name": "Lion",
+          "gender": 1
+        },
+        {
+          "id": 13,
+          "name": "Monkey",
+          "gender": 1
+        },
+        {
+          "id": 14,
+          "name": "Night",
+          "gender": 1
+        },
+        {
+          "id": 15,
+          "name": "Oxygen",
+          "gender": 2
+        },
+        {
+          "id": 16,
+          "name": "Park",
+          "gender": 2
+        },
+        {
+          "id": 17,
+          "name": "Queen",
+          "gender": 2
+        },
+        {
+          "id": 18,
+          "name": "Rider",
+          "gender": 2
+        },
+        {
+          "id": 19,
+          "name": "Swing",
+          "gender": 2
+        },
+        {
+          "id": 20,
+          "name": "Typer",
+          "gender": 2
+        },
+        {
+          "id": 21,
+          "name": "Unique",
+          "gender": 2
+        },
+        {
+          "id": 22,
+          "name": "Van",
+          "gender": 2
+        },
+        {
+          "id": 23,
+          "name": "World",
+          "gender": 2
+        },
+        {
+          "id": 24,
+          "name": "X-X",
+          "gender": 2
+        },
+        {
+          "id": 25,
+          "name": "Yucca",
+          "gender": 2
+        },
+        {
+          "id": 26,
+          "name": "Zebra",
+          "gender": 2
+        }
+      ]
+    },
+    "count-down": {}
   },
-  "count-down": {}
-}
+  {
+    "new-rand": {
+      "students": ":associated(0, rand-stu, students)"
+    }
+  }
+]
