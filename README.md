@@ -13,7 +13,7 @@
 - 设置文件请参考项目主目录下 `test.json` 内容格式。
 
 ## **3. 关于作者**
-- 联系方式：`Horean0574@outlook.com`
+- 联系方式：`hi@hxrch.top`
 - 喜欢本项目的记得在[主页][3]给个**Star**
 - Gitee仓库：*https://gitee.com/Horean0574/tch-sys*
 - GitHub仓库：*https://github.com/Horean0574/tch-sys*
@@ -21,4 +21,5 @@
   
   [1]: https://tch-sys.hxrch.top
   [2]: https://tch-sys.hxrch.top/#usage-area
+
   [3]: https://gitee.com/Horean0574/tch-sys/
